@@ -222,14 +222,18 @@ def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000,train=True):
     y_mean = np.median(Y)
     log_likelihood = -tf.reduce_sum(log_likelihood)
     #log_likelihood = -tf.reduce_sum(log_likelihood*(y_mean-y_train)**4 )
-    global_step = tf.Variable(0, trainable=False)
-    decayed_lr = tf.train.exponential_decay(learning_rate,
+    if train:
+        global_step = tf.Variable(0, trainable=False)
+        decayed_lr = tf.train.exponential_decay(learning_rate,
                                         global_step, step,
                                         decay_rate, staircase=True)
-    optimizer = tf.train.AdamOptimizer(decayed_lr)
-    train_op = optimizer.minimize(log_likelihood)
-    evaluate(tf.global_variables_initializer())
-    return log_likelihood, train_op, logits, locs, scales
+        optimizer = tf.train.AdamOptimizer(decayed_lr)
+        train_op = optimizer.minimize(log_likelihood)
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, train_op, logits, locs, scales
+    else:
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, logits, locs, scales
 
 def train(log_likelihood,train_op,n_epoch):
     train_loss = np.zeros(n_epoch)
@@ -245,8 +249,11 @@ def get_predictions(logits,locs,scales):
     pred_weights, pred_means, pred_std = evaluate([tf.nn.softmax(logits), locs, scales])
     return pred_weights, pred_means, pred_std
 
-def plot_pdfs(pred_means,pred_weights,pred_std,num=10):
-    obj = [random.randint(0,num_train-1) for x in range(num)]
+def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
+    if train:
+        obj = [random.randint(0,num_train-1) for x in range(num)]
+    else:
+        obj = [random.randint(0,num_test-1) for x in range(num)]
     #obj = [93, 402, 120,789,231,4,985]
     print(obj)
     fig, axes = plt.subplots(nrows=num, ncols=1, sharex = True, figsize=(8, 7))
@@ -436,12 +443,12 @@ def per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train):
     std_sigma = np.std(y_pred_std)
     return mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma
 
-def testing(save_mod,X_test,y_test):
-    neural_network_t = hub.Module(save_mod)
-    log_likelihood, train_op, logits, locs, scales = mixture_model(X_test,y_test,train=False)
-    _, loss_value = evaluate([train_op, log_likelihood])
+def testing(X_test,y_test):
+
+    log_likelihood,  logits, locs, scales = mixture_model(X_test,y_test,train=False)
+    #_, loss_value = evaluate([train_op, log_likelihood])
     pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
-    return pred_weights, pred_means, pred_std , loss_value
+    return pred_weights, pred_means, pred_std
 
 
 
@@ -464,7 +471,7 @@ save_mod = '/home/mrl2968/Desktop/Kavli/gmodels/lr'+str(learning_rate)+'_dr'+str
 
 X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits')
 #import pdb ; pdb.set_trace()
-
+"""
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
@@ -494,11 +501,10 @@ mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred
 
 ######testing
 
+neural_network_t = hub.Module(save_mod)
+test_weights, test_means, test_std = testing(X_test,y_test)
+plot_pdfs(test_means,test_weights,test_std,train=False)
 
-test_weights, test_means, test_std = test(save_mod,X_test)
-plot_pdfs(test_means,test_weights,test_std)
-
-plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_train)
+plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test)
 
 test_mean_diff, test_med_diff, test_std_diff, test_mean_sigma, test_med_sigma, test_std_sigma = per_stats(test_means,test_weights,test_std,ymax,ymin,y_test)
-"""
