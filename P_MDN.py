@@ -230,7 +230,8 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10):
         verticalalignment='center')
 
     plt.xlabel(r' rescaled[$z_{pred}]$', fontsize = 19)
-    plt.show()
+    #plt.show()
+    plt.savefig('pdfs.pdf')
 
 def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
@@ -256,7 +257,8 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig('pred_mean.pdf')
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     def peak(weight,sigma):
@@ -281,7 +283,9 @@ def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('highest peak')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig('pred_peak.pdf')
+    
 
 def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     weight_max = np.argmax(pred_weights, axis = 1)  ## argmax or max???
@@ -307,7 +311,8 @@ def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='
     #plt.ylim([0,1])
     plt.title('highest weight')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig('pred_weight.pdf')
 
 def select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='peak',cut=200):
     print(cmethod)
@@ -387,7 +392,8 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_yticklabels(np.round(np.linspace(np.min(params[:,1]),np.max(params[:,1]),gbins),decimals=2))
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Contamination')
-    plt.show()
+    #plt.show()
+    plt.savefig('bins_fp.pdf')
     fig, ax = plt.subplots()
     plt.imshow(pps)
     plt.colorbar()
@@ -396,7 +402,8 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_yticklabels(np.round(np.linspace(np.min(params[:,1]),np.max(params[:,1]),gbins),decimals=2))
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Sucessful IDs')
-    plt.show()
+    #plt.show()
+    plt.savefig('bins_tp.pdf')
     fig, ax = plt.subplots()
     plt.imshow(tots)
     plt.colorbar()
@@ -405,7 +412,8 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_yticklabels(np.round(np.linspace(np.min(params[:,1]),np.max(params[:,1]),gbins),decimals=2))
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Total IDS')
-    plt.show()
+    #plt.show()
+    plt.savefig('bins_total.pdf')
     return cont, pps, tots
 
 def testing(X_test,y_test):
