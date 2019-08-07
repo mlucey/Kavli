@@ -152,6 +152,8 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     y_train_shuffled = y_train_rescaled[TrainshuffleOrder]
     #classy_shuffled = classy[TrainshuffleOrder]
     params_shuffled = params[TrainshuffleOrder]
+    ##ADD GAIA CUT
+    #sn_cut = inds = np.where( (al['Jmag']/al['e_Jmag']>SNcut) & (al['Hmag']/al['e_Hmag']>SNcut) & (al['Kmag']/al['e_Kmag']>SNcut) & (al['phot_g_mean_mag']>-1000) & (al['phot_g_mean_mag']>-1000) & (al['phot_rp_mean_mag']>-1000) & (al['gmag']/al['e_gmag']>SNcut) & (al['rmag']/al['e_rmag']>SNcut) & (al['imag']/al['e_imag']>SNcut) & (al['zmag']/al['e_zmag']>SNcut) & (al['ymag']/al['e_ymag']>SNcut) & (al['W1mag']/al['e_W1mag']>SNcut) & (al['W2mag']/al['e_W2mag']>SNcut))[0]
 
     X_train = x_train_shuffled[:num_train]  # color mag
     X_test = x_train_shuffled[num_train + 1: num_train + num_test]  # color mag
@@ -172,9 +174,6 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
  # fileIn='lamost_rc_wise_gaia_PS1_2mass.fits'
 
  # X_train, y_train, X_test, y_test = GenData_skymapper(fileIn = 'apogee_rc_skymapper.fits')
-
-
-
 
 
 def neural_network_mod():
@@ -461,6 +460,7 @@ K = 3 # number of mixture components
 learning_rate = 1e-2
 decay_rate= .7
 step=100
+SNcut = 100
 
 num_train = 50000 #800000
 num_test = 1000 #10000 #params.num_test # 32
@@ -479,7 +479,7 @@ log_likelihood, train_op, logits, locs, scales  = mixture_model(X_train,y_train,
 
 train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
-#neural_network.export(save_mod,sess)
+neural_network.export(save_mod,sess)
 
 pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 print(pred_means)
@@ -499,12 +499,56 @@ mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred
 
 #bin_contam, bin_pp, bin_tot = binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tbins=10,gbins=10)
 
-######testing
 
+#load saved network
 neural_network_t = hub.Module(save_mod)
+
+######testing
+"""
 test_weights, test_means, test_std = testing(X_test,y_test)
 plot_pdfs(test_means,test_weights,test_std,train=False)
 
 plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test)
 
 test_mean_diff, test_med_diff, test_std_diff, test_mean_sigma, test_med_sigma, test_std_sigma = per_stats(test_means,test_weights,test_std,ymax,ymin,y_test)
+"""
+def load_data(filein='lamost_rc_wise_gaia_PS1_2mass.fits',y_exist=True):
+    filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
+              'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
+              'zmag', 'ymag', 'W1mag', 'W2mag']  # train filters#
+    params = ['Teff','log_g_']
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    al = al[inds]
+    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]]]).T
+    x_train_rescaled = (x_train_all - xmin) / (xmax - xmin)
+    if y_exist:
+        y_train_all = np.array(al[params[1]]).T
+        y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+        return x_train_rescaled, y_train_rescaled
+
+def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_wise_gaia_PS1_2mass.fits'):
+    y_pred = np.sum(pred_means*pred_weights, axis = 1)
+    y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
+    y_pred = (ymax - ymin)*(y_pred)+ymin
+    y_pred_std = (ymax - ymin)*(y_pred_std)
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    pred_in = np.full(len(al),np.nan)
+    pred_std_in = np.full(len(al),np.nan)
+    pred_in[inds] = y_pred
+    pred_std_in[inds] = y_pred_std
+
+    al['logg_phot'] = pred_in
+    al['e_logg_phot'] = pred_std_in
+    al.write(filein[:-5]+'_phot.fits',overwrite=True)
+## determing parameters of rc catalog stars
+rc_x, rc_y = load_data()
+rc_weights, rc_means, rc_std = testing(rc_x,rc_y)
+plot_pdfs(rc_means,rc_weights,rc_std,train=False)
+
+plot_pred_mean(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+rc_mean_diff, rc_med_diff, rc_std_diff, rc_mean_sigma, rc_med_sigma, rc_std_sigma = per_stats(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+save_inf(rc_means,rc_weights,rc_std)

@@ -14,6 +14,7 @@ import seaborn as sns;
 from scipy import stats
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
+import tensorflow_hub as hub
 
 tf.logging.set_verbosity(tf.logging.ERROR)
 import tensorflow_probability as tfp
@@ -141,7 +142,7 @@ def GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits'):
 
 
 
-def neural_network(X):
+def neural_network_mod():
     """
     loc, scale, logits = NN(x; theta)
 
@@ -154,17 +155,26 @@ def neural_network(X):
       logits: The probabilities of ou categorical distribution that decides
         which normal distribution our data points most probably belong to.
     """
+    X = tf.placeholder(tf.float64,name='X',shape=(None,D))
     # 2 hidden layers with 15 hidden units
-    net = tf.layers.dense(X, 15, activation=tf.nn.relu)
-    net = tf.layers.dense(net, 15, activation=tf.nn.relu)
+    net = tf.layers.dense(X, 32, activation=tf.nn.relu)
+    net = tf.layers.dense(net, 16, activation=tf.nn.relu)
+    net = tf.layers.dense(net, 8, activation=tf.nn.relu)
     locs = tf.layers.dense(net, K, activation=None)
     scales = tf.layers.dense(net, K, activation=tf.exp)
     logits = tf.layers.dense(net, K, activation=None)
+    outdict= {'locs':locs, 'scales':scales, 'logits':logits}
+    hub.add_signature(inputs=X,outputs=outdict)
+
     return locs, scales, logits
 
 
-def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000):
-    locs, scales, logits = neural_network(tf.convert_to_tensor(X))
+def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000,train=True):
+    if train:
+        dict = neural_network(tf.convert_to_tensor(X),as_dict=True)
+    else:
+        dict = neural_network_t(tf.convert_to_tensor(X),as_dict=True)
+    locs = dict['locs'] ; scales = dict['scales'] ; logits = dict['logits']
     cat = tfd.Categorical(logits=logits)
     components = [tfd.Normal(loc=loc, scale=scale) for loc, scale
                   in zip(tf.unstack(tf.transpose(locs)),
@@ -174,15 +184,22 @@ def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000):
     #define loss function
     log_likelihood = y.log_prob(Y)
     # log_likelihood = -tf.reduce_sum(log_likelihood/(1. + y_train)**2 )
-    log_likelihood = -tf.reduce_sum(log_likelihood/(1. + y_train) )
-    global_step = tf.Variable(0, trainable=False)
-    decayed_lr = tf.train.exponential_decay(learning_rate,
+    y_mean = np.median(Y)
+    log_likelihood = -tf.reduce_sum(log_likelihood)
+    #log_likelihood = -tf.reduce_sum(log_likelihood*(y_mean-y_train)**4 )
+    if train:
+        global_step = tf.Variable(0, trainable=False)
+        decayed_lr = tf.train.exponential_decay(learning_rate,
                                         global_step, step,
                                         decay_rate, staircase=True)
-    optimizer = tf.train.AdamOptimizer(decayed_lr)
-    train_op = optimizer.minimize(log_likelihood)
-    evaluate(tf.global_variables_initializer())
-    return log_likelihood, train_op, logits, locs, scales
+        optimizer = tf.train.AdamOptimizer(decayed_lr)
+        train_op = optimizer.minimize(log_likelihood)
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, train_op, logits, locs, scales
+    else:
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, logits, locs, scales
+
 
 def train(log_likelihood,train_op,n_epoch):
     train_loss = np.zeros(n_epoch)
@@ -292,25 +309,25 @@ def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='
     plt.tight_layout()
     plt.show()
 
-def select_rc(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cmethod='peak',cut=200):
+def select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='peak',cut=200):
     print(cmethod)
-    rcs =np.zeros(len(y_train))
+    rcs =np.zeros(len(pred_means))
     if cmethod == 'peak':
         def peak(weight,sigma):
             return weight/np.sqrt(2*np.pi*sigma**2)
 
         peak_max = np.argmax(peak(pred_weights,pred_std),axis=1)
-        y_pred = np.array([pred_means[i,peak_max[i]] for i in range(len(y_train))])
-        y_pred_std = np.array([pred_std[i,peak_max[i]] for i in range(len(y_train))])
+        y_pred = np.array([pred_means[i,peak_max[i]] for i in range(len(pred_means))])
+        y_pred_std = np.array([pred_std[i,peak_max[i]] for i in range(len(pred_means))])
     if cmethod == 'weight':
         weight_max = np.argmax(pred_weights, axis = 1)  ## argmax or max???
         #print(weight_max.shape)
-        y_pred = np.array([pred_means[i,weight_max[i]] for i in range(len(y_train))])
-        y_pred_std = np.array([pred_std[i,weight_max[i]] for i in range(len(y_train))])
+        y_pred = np.array([pred_means[i,weight_max[i]] for i in range(len(pred_means))])
+        y_pred_std = np.array([pred_std[i,weight_max[i]] for i in range(len(pred_means))])
     y_pred = (ymax - ymin)*(y_pred)+ymin
     #print(y_pred.shape)
     y_pred_std = (ymax - ymin)*(y_pred_std)
-    y_train = (ymax - ymin)*(y_train)+ymin
+    #y_train = (ymax - ymin)*(y_train)+ymin
 
     yes = np.where(y_pred>cut)[0]
     rcs[yes] =1
@@ -318,7 +335,7 @@ def select_rc(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cmethod='peak',
     return rcs
 
 def contamination(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cut=200):
-    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cmethod='peak')
+    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='peak')
     trcs = np.zeros(len(y_train))
     y_train = (ymax - ymin)*(y_train)+ymin
     tyes = np.where(y_train>cut)[0]
@@ -327,7 +344,7 @@ def contamination(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cut=200):
     true_positive_p = np.where((rcs==1) & (trcs==1))[0]
     positive_p = np.where(rcs==1)[0]
     tpositive = np.where(trcs==1)[0]
-    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cmethod='weight')
+    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='weight')
     #print(rcs)
     false_positive_w = np.where((rcs==1) & (trcs==0))[0]
     #print(false_positive_w.shape)
@@ -341,7 +358,7 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     cont = np.zeros((tbins,gbins))
     pps = np.zeros((tbins,gbins))
     tots= np.zeros((tbins,gbins))
-    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,y_train,cmethod='peak')
+    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='peak')
     trcs = np.zeros(len(y_train))
     y_train = (ymax - ymin)*(y_train)+ymin
     tyes = np.where(y_train>cut)[0]
@@ -390,23 +407,39 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     plt.title('Total IDS')
     plt.show()
     return cont, pps, tots
-n_epochs = 10000 #1000 #20000 #20000
+
+def testing(X_test,y_test):
+
+    log_likelihood,  logits, locs, scales = mixture_model(X_test,y_test,train=False)
+    #_, loss_value = evaluate([train_op, log_likelihood])
+    pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
+    return pred_weights, pred_means, pred_std
+
+n_epochs = 100000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 13 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 2 # number of mixture components
 
-learning_rate = 5e-3
-decay_rate= .96
-step=1000
+learning_rate = 1e-2
+decay_rate= .2
+step=500
 
 num_train = 100000 #800000
 num_test = 500 #10000 #params.num_test # 32
 
+save_mod = '/home/mrl2968/Desktop/Kavli/Pmodels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+
+
 X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits')
+
+net_spec = hub.create_module_spec(neural_network_mod)
+neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
 log_likelihood, train_op, logits, locs, scales  = mixture_model(X_train,y_train,learning_rate=learning_rate,decay_rate=decay_rate)
 
 train_loss = train(log_likelihood,train_op,n_epochs)
+#save network
+neural_network.export(save_mod,sess)
 
 pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 print(pred_means)
@@ -420,3 +453,59 @@ plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 contamp, contamw, pp, pw = contamination(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
 bin_contam, bin_pp, bin_tot = binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tbins=10,gbins=10)
+
+
+#load saved network
+#neural_network_t = hub.Module(save_mod)
+
+######testing
+"""
+test_weights, test_means, test_std = testing(X_test,y_test)
+plot_pdfs(test_means,test_weights,test_std,train=False)
+
+plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test)
+
+#test_mean_diff, test_med_diff, test_std_diff, test_mean_sigma, test_med_sigma, test_std_sigma = per_stats(test_means,test_weights,test_std,ymax,ymin,y_test)
+"""
+def load_data(filein='lamost_rc_wise_gaia_PS1_2mass.fits',y_exist=True):
+    filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
+              'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
+              'zmag', 'ymag', 'W1mag', 'W2mag']  # train filters#
+    params = ['Teff','log_g_']
+    goal = 'DeltaP'
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    al = al[inds]
+    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]]]).T
+    x_train_rescaled = (x_train_all - xmin) / (xmax - xmin)
+    if y_exist:
+        y_train_all = np.array(al[goal]).T
+        y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+        return x_train_rescaled, y_train_rescaled
+
+def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_wise_gaia_PS1_2mass_phot_phot.fits'):
+    rcs = select_rc(pred_means,pred_weights,pred_std,ymax,ymin)
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    pred_in = np.full(len(al),np.nan)
+    pred_std_in = np.full(len(al),np.nan)
+    pred_in[inds] = rcs
+    al['Class_phot'] = pred_in
+
+    al.write(filein[:-5]+'_class.fits',overwrite=True)
+"""
+## determing parameters of rc catalog stars
+rc_x, rc_y = load_data()
+rc_weights, rc_means, rc_std = testing(rc_x,rc_y)
+plot_pdfs(rc_means,rc_weights,rc_std,train=False)
+
+plot_pred_mean(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+contamp, contamw, pp, pw = contamination(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+
+bin_contam, bin_pp, bin_tot = binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tbins=10,gbins=10)
+
+#rc_mean_diff, rc_med_diff, rc_std_diff, rc_mean_sigma, rc_med_sigma, rc_std_sigma = per_stats(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+save_inf(rc_means,rc_weights,rc_std)
+"""

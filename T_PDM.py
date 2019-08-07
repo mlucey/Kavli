@@ -180,8 +180,11 @@ def neural_network_mod():
     return locs, scales, logits
 
 
-def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000):
-    dict = neural_network(tf.convert_to_tensor(X),as_dict=True)
+def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000,train=True):
+    if train:
+        dict = neural_network(tf.convert_to_tensor(X),as_dict=True)
+    else:
+        dict = neural_network_t(tf.convert_to_tensor(X),as_dict=True)
     locs = dict['locs'] ; scales = dict['scales'] ; logits = dict['logits']
     cat = tfd.Categorical(logits=logits)
     components = [tfd.Normal(loc=loc, scale=scale) for loc, scale
@@ -192,15 +195,21 @@ def mixture_model(X,Y,learning_rate=1e-3,decay_rate=.95,step=1000):
     #define loss function
     log_likelihood = y.log_prob(Y)
     # log_likelihood = -tf.reduce_sum(log_likelihood/(1. + y_train)**2 )
-    log_likelihood = -tf.reduce_sum(log_likelihood )
-    global_step = tf.Variable(0, trainable=False)
-    decayed_lr = tf.train.exponential_decay(learning_rate,
+    y_mean = np.median(Y)
+    log_likelihood = -tf.reduce_sum(log_likelihood)
+    #log_likelihood = -tf.reduce_sum(log_likelihood*(y_mean-y_train)**4 )
+    if train:
+        global_step = tf.Variable(0, trainable=False)
+        decayed_lr = tf.train.exponential_decay(learning_rate,
                                         global_step, step,
                                         decay_rate, staircase=True)
-    optimizer = tf.train.AdamOptimizer(decayed_lr)
-    train_op = optimizer.minimize(log_likelihood)
-    evaluate(tf.global_variables_initializer())
-    return log_likelihood, train_op, logits, locs, scales
+        optimizer = tf.train.AdamOptimizer(decayed_lr)
+        train_op = optimizer.minimize(log_likelihood)
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, train_op, logits, locs, scales
+    else:
+        evaluate(tf.global_variables_initializer())
+        return log_likelihood, logits, locs, scales
 
 def train(log_likelihood,train_op,n_epoch):
     train_loss = np.zeros(n_epoch)
@@ -216,8 +225,11 @@ def get_predictions(logits,locs,scales):
     pred_weights, pred_means, pred_std = evaluate([tf.nn.softmax(logits), locs, scales])
     return pred_weights, pred_means, pred_std
 
-def plot_pdfs(pred_means,pred_weights,pred_std,num=10):
-    obj = [random.randint(0,num_train-1) for x in range(num)]
+def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
+    if train:
+        obj = [random.randint(0,num_train-1) for x in range(num)]
+    else:
+        obj = [random.randint(0,num_test-1) for x in range(num)]
     #obj = [93, 402, 120,789,231,4,985]
     print(obj)
     fig, axes = plt.subplots(nrows=num, ncols=1, sharex = True, figsize=(8, 7))
@@ -407,11 +419,11 @@ def per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train):
     std_sigma = np.std(y_pred_std)
     return mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma
 
-def testing(save_mod,X_test):
-    neural_network = hub.Module(save_mod)
-    dict = neural_network(X_test,as_dict=True)
-    locs = dict['locs'] ; scales = dict['scales'] ; logits = dict['logits']
-    pred_weights, pred_means, pred_std = evaluate([tf.nn.softmax(logits), locs, scales])
+def testing(X_test,y_test):
+
+    log_likelihood,  logits, locs, scales = mixture_model(X_test,y_test,train=False)
+    #_, loss_value = evaluate([train_op, log_likelihood])
+    pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
     return pred_weights, pred_means, pred_std
 
 def plot_cum_sigma(pred_weights,pred_std,ymax,ymin):
@@ -444,7 +456,7 @@ save_mod = '/home/mrl2968/Desktop/Kavli/Tmodels/lr'+str(learning_rate)+'_dr'+str
 
 X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits')
 #import pdb ; pdb.set_trace()
-
+"""
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
@@ -464,8 +476,8 @@ plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
 plot_cum_sigma(pred_weights,pred_std,ymax,ymin)
-
 """
+
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
@@ -473,15 +485,59 @@ plot_cum_sigma(pred_weights,pred_std,ymax,ymin)
 
 #bin_contam, bin_pp, bin_tot = binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tbins=10,gbins=10)
 
-######testing
 
+#load network
+neural_network_t = hub.Module(save_mod)
+"""
 
-test_weights, test_means, test_std = testing(save_mod,X_test)
-plot_pdfs(test_means,test_weights,test_std)
+##testing
+test_weights, test_means, test_std = testing(X_test,y_test)
+plot_pdfs(test_means,test_weights,test_std,train=False)
 
-plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_train)
+plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test)
 
 plot_cum_sigma(test_weights,test_std,ymax,ymin)
 
 test_mean_diff, test_med_diff, test_std_diff, test_mean_sigma, test_med_sigma, test_std_sigma = per_stats(test_means,test_weights,test_std,ymax,ymin,y_test)
 """
+
+def load_data(filein='lamost_rc_wise_gaia_PS1_2mass.fits',y_exist=True):
+    filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
+              'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
+              'zmag', 'ymag', 'W1mag', 'W2mag']  # train filters#
+    params = ['Teff','log_g_']
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    al = al[inds]
+    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]]]).T
+    x_train_rescaled = (x_train_all - xmin) / (xmax - xmin)
+    if y_exist:
+        y_train_all = np.array(al[params[0]]).T
+        y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+        return x_train_rescaled, y_train_rescaled
+
+def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_wise_gaia_PS1_2mass_phot.fits'):
+    y_pred = np.sum(pred_means*pred_weights, axis = 1)
+    y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
+    y_pred = (ymax - ymin)*(y_pred)+ymin
+    y_pred_std = (ymax - ymin)*(y_pred_std)
+    al = Table.read(filein)
+    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
+    pred_in = np.full(len(al),np.nan)
+    pred_std_in = np.full(len(al),np.nan)
+    pred_in[inds] = y_pred
+    pred_std_in[inds] = y_pred_std
+
+    al['Teff_phot'] = pred_in
+    al['e_Teff_phot'] = pred_std_in
+    al.write(filein[:-5]+'_phot.fits',overwrite=True)
+## determing parameters of rc catalog stars
+rc_x, rc_y = load_data()
+rc_weights, rc_means, rc_std = testing(rc_x,rc_y)
+plot_pdfs(rc_means,rc_weights,rc_std,train=False)
+
+plot_pred_mean(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+rc_mean_diff, rc_med_diff, rc_std_diff, rc_mean_sigma, rc_med_sigma, rc_std_sigma = per_stats(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
+
+save_inf(rc_means,rc_weights,rc_std)
