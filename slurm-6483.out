@@ -1,0 +1,45 @@
+[0] setting up environment
+2019-08-07 21:59:23.900579: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-08-07 21:59:23.922026: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100090000 Hz
+2019-08-07 21:59:23.928031: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f8d47980720 executing computations on platform Host. Devices:
+2019-08-07 21:59:23.928101: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-08-07 21:59:24.641363: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f8d47a2ffa0 executing computations on platform CUDA. Devices:
+2019-08-07 21:59:24.641411: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-08-07 21:59:24.641671: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-08-07 21:59:24.641698: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-08-07 21:59:24.644684: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-07 21:59:24.644713: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-08-07 21:59:24.644730: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-08-07 21:59:24.644922: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+2019-08-07 21:59:27.594296: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/table/column.py:981: RuntimeWarning: invalid value encountered in greater
+  return getattr(self.data, op)(other)
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+47410
+14127
+100000
+0.14127
+[[0.15026854 0.63981387]
+ [0.12872518 0.6240432 ]
+ [0.1293664  0.5987543 ]
+ ...
+ [0.15210801 0.64005186]
+ [0.1294924  0.63712582]
+ [0.17440578 0.64293678]]
+[41591, 70954, 79289, 8385, 22740, 70287, 62172, 4911, 30428, 64153]
+peak
+weight
+peak
+[0. 0. 0. ... 1. 1. 1.]
+[5924] End job
