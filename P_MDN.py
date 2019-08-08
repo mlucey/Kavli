@@ -4,13 +4,18 @@ import string
 from datetime import datetime
 import os
 from astropy.table import Table
+
+
+import matplotlib as mpl
+mpl.use('Agg')
+
 import matplotlib.pyplot as plt;
 import random
 
 
 import matplotlib.axes as axes;
 from matplotlib.patches import Ellipse
-import seaborn as sns;
+#import seaborn as sns;
 from scipy import stats
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
@@ -208,7 +213,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
-    plt.savefig('loss_function.pdf')
+    plt.savefig('../Plots/loss_function.pdf')
     return train_loss
 
 
@@ -232,7 +237,7 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10):
 
     plt.xlabel(r' rescaled[$z_{pred}]$', fontsize = 19)
     #plt.show()
-    plt.savefig('pdfs.pdf')
+    plt.savefig('../Plots/pdfs.pdf')
 
 def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
@@ -259,7 +264,7 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     plt.title('weight x mean')
     plt.tight_layout()
     #plt.show()
-    plt.savefig('pred_mean.pdf')
+    plt.savefig('../Plots/pred_mean.pdf')
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     def peak(weight,sigma):
@@ -285,7 +290,7 @@ def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     plt.title('highest peak')
     plt.tight_layout()
     #plt.show()
-    plt.savefig('pred_peak.pdf')
+    plt.savefig('../Plots/pred_peak.pdf')
     
 
 def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -313,7 +318,7 @@ def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='
     plt.title('highest weight')
     plt.tight_layout()
     #plt.show()
-    plt.savefig('pred_weight.pdf')
+    plt.savefig('../Plots/pred_weight.pdf')
 
 def select_rc(pred_means,pred_weights,pred_std,ymax,ymin,cmethod='peak',cut=200):
     print(cmethod)
@@ -394,7 +399,7 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Contamination')
     #plt.show()
-    plt.savefig('bins_fp.pdf')
+    plt.savefig('../Plots/bins_fp.pdf')
     fig, ax = plt.subplots()
     plt.imshow(pps)
     plt.colorbar()
@@ -404,7 +409,7 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Sucessful IDs')
     #plt.show()
-    plt.savefig('bins_tp.pdf')
+    plt.savefig('../Plots/bins_tp.pdf')
     fig, ax = plt.subplots()
     plt.imshow(tots)
     plt.colorbar()
@@ -414,7 +419,7 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tb
     ax.set_xticklabels(np.round(np.linspace(np.min(params[:,0]),np.max(params[:,0]),tbins/2+1),decimals=2))
     plt.title('Total IDS')
     #plt.show()
-    plt.savefig('bins_total.pdf')
+    plt.savefig('../Plots/bins_total.pdf')
     return cont, pps, tots
 
 def testing(X_test,y_test):
@@ -436,10 +441,10 @@ step=500
 num_train = 100000 #800000
 num_test = 500 #10000 #params.num_test # 32
 
-save_mod = '/home/mrl2968/Desktop/Kavli/Pmodels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = '../Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 
-X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits')
+X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
 
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
