@@ -1,0 +1,52 @@
+[0] setting up environment
+2019-08-09 06:07:36.000337: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-08-09 06:07:36.020428: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100090000 Hz
+2019-08-09 06:07:36.026367: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f367e3d49c0 executing computations on platform Host. Devices:
+2019-08-09 06:07:36.026431: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-08-09 06:07:36.768798: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f367e484260 executing computations on platform CUDA. Devices:
+2019-08-09 06:07:36.768845: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-08-09 06:07:36.769088: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-08-09 06:07:36.769117: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-08-09 06:07:36.772505: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-09 06:07:36.772532: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-08-09 06:07:36.772542: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-08-09 06:07:36.772695: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+2019-08-09 06:07:40.164573: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/table/column.py:981: RuntimeWarning: invalid value encountered in greater
+  return getattr(self.data, op)(other)
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+0
+100000
+0.0
+Traceback (most recent call last):
+  File "P_MDN.py", line 463, in <module>
+    neural_network.export(save_mod,sess)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/module.py", line 319, in export
+    self._impl.export(path, session)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/native_module.py", line 586, in export
+    self._spec._export(path, variables_saver)  # pylint: disable=protected-access
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/native_module.py", line 358, in _export
+    overwrite=False)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/tf_utils.py", line 67, in atomic_write_string_to_file
+    tf_v1.gfile.Rename(temp_pathname, filename, overwrite)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/lib/io/file_io.py", line 508, in rename
+    rename_v2(oldname, newname, overwrite)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/lib/io/file_io.py", line 526, in rename_v2
+    compat.as_bytes(src), compat.as_bytes(dst), overwrite, status)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/framework/errors_impl.py", line 528, in __exit__
+    c_api.TF_GetCode(self.status.status))
+tensorflow.python.framework.errors_impl.AlreadyExistsError: file already exists
+srun: error: cp1-p: task 0: Exited with exit code 1
+[5849] End job
