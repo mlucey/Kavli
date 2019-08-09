@@ -64,19 +64,23 @@ def plot_normal_mix(pis, mus, sigmas, ax, label='', comp=True):
   ax.legend(fontsize=13)
   return final
 
-def GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits'):
+#def GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits'):
+def GenData_lamost(fileIn = 'rgb_p.fits'):
     filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
               'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
               'zmag', 'ymag', 'W1mag', 'W2mag']  # train filters
-    filts_target = ['DeltaP', 'Deltanu'] #
+    #filts_target = ['DeltaP', 'Deltanu'] #
+    filts_target = ['DeltaP']#, 'Deltanu'] #
     # filts_target = ['Teff', 'log_g_'] #
-    params = ['Teff','log_g_']
+    #params = ['Teff','log_g_']
+    params = ['teff','logg']
 
     al = Table.read(fileIn)
     inds = np.where( (al['Jmag']>-1000) & (al['Hmag']>-1000) & (al['Kmag']>-1000) & (al['phot_g_mean_mag']>-1000) & (al['phot_rp_mean_mag']>-1000) &
                       (al['gmag']>-1000) & (al['rmag']>-1000) & (al['imag']>-1000) & (al['zmag']>-1000) & (al['ymag']>-1000) & (al['W1mag']>-1000) & (al['W2mag']>-1000))[0]
     gps = al[inds]
-    inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000))[0]
+    #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000))[0]
+    inds = np.where(gps['DeltaP']>-1000) #& (gps['Deltanu']>-1000))[0]
     #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000)& ~(np.logical_and(gps['DeltaP']>=100, gps['DeltaP']<=250)))[0]
     # inds = np.where((gps['Teff']>-1000) & (gps['log_g_']>-1000) )[0]
 
@@ -444,7 +448,10 @@ num_test = 500 #10000 #params.num_test # 32
 save_mod = '../Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 
-X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
+#X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
+
+X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/rgb_p.fits')
+
 
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
@@ -481,11 +488,13 @@ plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test)
 
 #test_mean_diff, test_med_diff, test_std_diff, test_mean_sigma, test_med_sigma, test_std_sigma = per_stats(test_means,test_weights,test_std,ymax,ymin,y_test)
 """
-def load_data(filein='lamost_rc_wise_gaia_PS1_2mass.fits',y_exist=True):
+#def load_data(filein='lamost_rc_wise_gaia_PS1_2mass.fits',y_exist=True):
+def load_data(filein='rgb_p.fits',y_exist=True):
     filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
               'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
               'zmag', 'ymag', 'W1mag', 'W2mag']  # train filters#
-    params = ['Teff','log_g_']
+    #params = ['Teff','log_g_']
+    params = ['teff','logg']
     goal = 'DeltaP'
     al = Table.read(filein)
     inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
