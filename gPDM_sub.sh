@@ -5,7 +5,7 @@ echo [$SECONDS] setting up environment
 #export KERAS_BACKEND=tensorflow
 #srun -p cp100 /homes/nramachandra/anaconda3/envs/tf_gpu/bin/python P_MDN.py
 #srun -p cp100 python P_MDN.py
-srun -p cp100 python T_PDM.py
+srun -p cp100 python g_PDM_p.py
 
 echo [$SECONDS] End job 
 

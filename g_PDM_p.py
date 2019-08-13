@@ -1,3 +1,6 @@
+import matplotlib as mpl
+mpl.use('Agg')
+
 import math
 import numpy as np
 import string
@@ -458,7 +461,7 @@ def testing(X_test,y_test):
 
 
 
-n_epochs = 2000 #1000 #20000 #20000
+n_epochs = 1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 3 # number of mixture components
@@ -468,7 +471,7 @@ decay_rate= .5
 step=100
 SNcut = 100
 
-num_train = 10000 #800000
+num_train = 100000 #800000
 num_test = 1000 #10000 #params.num_test # 32
 
 

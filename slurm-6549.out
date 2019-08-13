@@ -1,0 +1,17 @@
+[0] setting up environment
+2019-08-13 05:10:13.635579: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-08-13 05:10:13.657518: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100040000 Hz
+2019-08-13 05:10:13.662741: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f06371e3250 executing computations on platform Host. Devices:
+2019-08-13 05:10:13.662805: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-08-13 05:10:14.388447: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f0637292b00 executing computations on platform CUDA. Devices:
+2019-08-13 05:10:14.388484: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-08-13 05:10:14.388691: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-08-13 05:10:14.388716: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-08-13 05:10:14.390975: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-13 05:10:14.390994: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-08-13 05:10:14.391004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-08-13 05:10:14.391133: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+2019-08-13 05:10:21.820873: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
