@@ -15,3 +15,47 @@ totalMemory: 15.90GiB freeMemory: 15.64GiB
 2019-08-13 05:10:14.391004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
 2019-08-13 05:10:14.391133: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
 2019-08-13 05:10:21.820873: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+3014211
+[      0       1       2 ... 3014208 3014209 3014210]
+[[13.60200024 13.05900002 12.9829998  ... 14.61830044 12.85999966
+  12.89900017]
+ [15.60200024 15.24499989 15.06599998 ... 16.43689919 15.10999966
+  15.14700031]
+ [15.75500011 15.3760004  15.19999981 ... 16.7390995  15.31999969
+  15.40999985]
+ ...
+ [ 9.67300034  9.17000008  9.04100037 ... 10.73400021  8.98900032
+   9.10099983]
+ [ 9.42099953  8.88199997  8.74400043 ... 10.50800037  8.68599987
+   8.79300022]
+ [10.46000004  9.88799953  9.79300022 ... 11.56400013  9.68999958
+   9.78999996]]
+21.773799896240234
+2.815000057220459
+[[0.56897062 0.54032956 0.53632086 ... 0.62257635 0.5298331  0.53189021]
+ [0.67446253 0.65563221 0.64619069 ... 0.71850008 0.64851149 0.65046313]
+ [0.68253266 0.66254196 0.65325864 ... 0.73443992 0.65958815 0.66433529]
+ ...
+ [0.36173177 0.33520054 0.32839633 ... 0.41769522 0.32565354 0.33156106]
+ [0.34843975 0.3200097  0.31273079 ... 0.40577465 0.30967149 0.31531533]
+ [0.40324282 0.37307211 0.36806128 ... 0.46147436 0.36262841 0.36790303]]
+[[0.24642707 0.3165491  0.31982549 0.32965591 0.30893128]
+ [0.25940448 0.31894562 0.31538414 0.33775597 0.28816591]
+ [0.24605638 0.31048771 0.31007672 0.32206164 0.28603892]
+ ...
+ [0.22947534 0.2781407  0.26016546 0.29082332 0.17171293]
+ [0.21886588 0.25375612 0.22838883 0.2854128  0.19571112]
+ [0.20148447 0.2658845  0.24626832 0.2750615  0.179508  ]]
+[72717, 56485, 91473, 94175, 63380, 2407, 91253, 21441, 30483, 2301]
+/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/matplotlib/figure.py:445: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  % get_backend())
+[7379] End job
