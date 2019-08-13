@@ -218,7 +218,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
-    plt.savefig('../Plots/loss_function.pdf')
+    plt.savefig('../Plots/T_loss_function.pdf')
     return train_loss
 
 
@@ -244,7 +244,7 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         verticalalignment='center')
 
     plt.xlabel(r' rescaled[$z_{pred}]$', fontsize = 19)
-    plt.savefig('../Plots/pdfs.pdf')
+    plt.savefig('../Plots/T_pdfs.pdf')
     plt.show()
 
 def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -276,7 +276,7 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     plt.tight_layout()
-    plt.savefig('../Plots/pred_mean.pdf')
+    plt.savefig('../Plots/T_pred_mean.pdf')
     plt.show()
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
