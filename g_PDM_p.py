@@ -244,6 +244,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
+    plt.savefig('../Plots/g_loss_function.pdf')
     return train_loss
 
 
@@ -269,6 +270,7 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         verticalalignment='center')
 
     plt.xlabel(r' rescaled[$z_{pred}]$', fontsize = 19)
+    plt.savefig('../Plots/g_pdfs.pdf')
     plt.show()
 
 def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -300,6 +302,7 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     plt.tight_layout()
+    plt.savefig('../Plots/g_predmeans.pdf')
     plt.show()
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -468,11 +471,11 @@ SNcut = 100
 num_train = 10000 #800000
 num_test = 1000 #10000 #params.num_test # 32
 
-save_mod = '/home/mrl2968/Desktop/Kavli/gmodels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = '../Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits')
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_wise_gaia_PS1_2mass.fits')
 #import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)
