@@ -471,11 +471,9 @@ SNcut = 100
 num_train = 10000 #800000
 num_test = 1000 #10000 #params.num_test # 32
 
-<<<<<<< HEAD
-save_mod = '../Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
-=======
+
 save_mod = '../gModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
->>>>>>> 19f0def04679531e389a917c568aa047c83acf34
+
 
 ############training
 
