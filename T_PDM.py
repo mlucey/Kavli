@@ -218,6 +218,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
+    plt.savefig('../Plots/loss_function.pdf')
     return train_loss
 
 
@@ -243,6 +244,7 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         verticalalignment='center')
 
     plt.xlabel(r' rescaled[$z_{pred}]$', fontsize = 19)
+    plt.savefig('../Plots/pdfs.pdf')
     plt.show()
 
 def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -274,6 +276,7 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     plt.tight_layout()
+    plt.savefig('../Plots/pred_mean.pdf')
     plt.show()
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
@@ -438,7 +441,7 @@ def plot_cum_sigma(pred_weights,pred_std,ymax,ymin):
     plt.xlabel('Sigma')
     plt.show()
 
-n_epochs = 100000 #1000 #20000 #20000
+n_epochs = 2000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 13 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 5 # number of mixture components
@@ -447,16 +450,16 @@ learning_rate = 1e-3
 decay_rate= .8
 step=100
 
-num_train = 100000 #800000
+num_train = 10000 #800000
 num_test = 100000 #10000 #params.num_test # 32
 
-save_mod = '/home/mrl2968/Desktop/Kavli/Tmodels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = '../Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits')
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_wise_gaia_PS1_2mass.fits')
 #import pdb ; pdb.set_trace()
-"""
+
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
@@ -476,7 +479,7 @@ plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
 plot_cum_sigma(pred_weights,pred_std,ymax,ymin)
-"""
+
 
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
@@ -532,6 +535,7 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_wise_gaia_PS1_2m
     al['e_Teff_phot'] = pred_std_in
     al.write(filein[:-5]+'_phot.fits',overwrite=True)
 ## determing parameters of rc catalog stars
+"""
 rc_x, rc_y = load_data()
 rc_weights, rc_means, rc_std = testing(rc_x,rc_y)
 plot_pdfs(rc_means,rc_weights,rc_std,train=False)
@@ -541,3 +545,4 @@ plot_pred_mean(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
 rc_mean_diff, rc_med_diff, rc_std_diff, rc_mean_sigma, rc_med_sigma, rc_std_sigma = per_stats(rc_means,rc_weights,rc_std,ymax,ymin,rc_y)
 
 save_inf(rc_means,rc_weights,rc_std)
+"""
