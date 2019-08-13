@@ -468,11 +468,11 @@ SNcut = 100
 num_train = 10000 #800000
 num_test = 1000 #10000 #params.num_test # 32
 
-save_mod = '/home/mrl2968/Desktop/Kavli/gmodels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = '../gModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits')
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_wise_gaia_PS1_2mass.fits')
 #import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)
