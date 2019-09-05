@@ -247,7 +247,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
-    plt.savefig('Plots/loss_function.pdf')
+    plt.savefig('../Plots/loss_function.pdf')
     return train_loss
 
 
@@ -274,9 +274,9 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
 
     plt.xlabel(r' rescaled[$log(g)_{phot}]$', fontsize = 19)
     if train:
-        plt.savefig('Plots/train_pdfs.pdf')
+        plt.savefig('../Plots/train_pdfs.pdf')
     else:
-        plt.savefig('Plots/test_pdfs.pdf')
+        plt.savefig('../Plots/test_pdfs.pdf')
     plt.tight_layout()
     #plt.show()
 
@@ -309,9 +309,9 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     if train:
-        plt.savefig('Plots/train_scatter.pdf')
+        plt.savefig('../Plots/train_scatter.pdf')
     else:
-        plt.savefig('Plots/test_scatter.pdf')
+        plt.savefig('../Plots/test_scatter.pdf')
     plt.tight_layout()
     plt.show()
 
@@ -485,7 +485,7 @@ save_mod = 'gModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_inds, test_inds = GenData_lamost(fileIn = 'lamost_phot_qual.fits')
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_inds, test_inds = GenData_lamost(fileIn = '../lamost_phot_qual.fits')
 #import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)
@@ -537,7 +537,7 @@ def load_data(filein='rgb_p.fits',y_exist=True):
         y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
         return x_train_rescaled, y_train_rescaled
 
-def save_inf(pred_means,pred_weights,pred_std,filein='lamost_phot_qual.fits',test=False):
+def save_inf(pred_means,pred_weights,pred_std,filein='../lamost_phot_qual.fits',test=False):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
     y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
     y_pred = (ymax - ymin)*(y_pred)+ymin
@@ -547,7 +547,7 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_phot_qual.fits',tes
         al = al[test_inds]
         al['logg_phot_1'] = y_pred
         al['logg_phot_1_error'] = y_pred_std
-        al.write('Tables/test_all_logg.fits',overwrite=True)
+        al.write('../Tables/test_all_logg.fits',overwrite=True)
     else:
         al = Table.read(filein)
         inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag']))  & ~(np.isnan(al['parallax'])) )[0]
