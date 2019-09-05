@@ -478,8 +478,8 @@ decay_rate= .5
 step=100
 SNcut = 100
 
-num_train = 500000 #800000
-num_test = 500000 #10000 #params.num_test # 32
+num_train = 200000 #800000
+num_test = 900000 #10000 #params.num_test # 32
 
 save_mod = 'gModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
