@@ -169,7 +169,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     inds_train = np.where(al['snrg'][TrainshuffleOrder]>50)[0][:num_train]
     train_tinds = tinds[inds_train]
 
-    test_tinds = np.array(set(range(len(x_train_shufffled)))-set(inds_train))
+    test_tinds = np.array(set(range(len(x_train_shuffled)))-set(inds_train),dtype='int')
 
     X_train = x_train_shuffled[inds_train]  # color mag
     X_test = x_train_shuffled[test_tinds][:num_test]
