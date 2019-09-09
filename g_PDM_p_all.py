@@ -166,13 +166,14 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     y_test = y_train_shuffled[num_train + 1: num_train + num_test]  # spec z
     #classy = classy_shuffled[:num_train]
     params = params_shuffled[:num_train]
-    train_tinds = tinds[(al['snrg'][TrainshuffleOrder] >50)][:num_train]
+    inds_train = np.where(al['snrg'][TrainshuffleOrder]>50)[0][:num_train]
+    train_tinds = tinds[inds_train]
 
-    test_tinds = np.array(set(tinds)-set(train_tinds))
+    test_tinds = np.array(set(range(len(x_train_shufffled)))-set(inds_train))
 
-    X_train = x_train_shuffled[train_tinds]  # color mag
+    X_train = x_train_shuffled[inds_train]  # color mag
     X_test = x_train_shuffled[test_tinds][:num_test]
-    test_tinds = test_tinds[:num_test]
+    test_tinds = tinds[test_tinds][:num_test]
     # return (X_train[:, 2:8], y_train, X_test[:, 2:8], y_test)
     # return (X_train[:, :5], y_train[:, 0], X_test[:, :5], y_test[:, 0])
     #print(len(np.where(classy==1)[0]))
