@@ -95,6 +95,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]]]).T
     y_train_all = np.array(al[params[0]]).T
     params = np.array([al[params[0]],al[params[1]]]).T
+    ids = np.array(al['source_id']).T
     #classy = np.zeros(len(al))
     #inds  = np.where((al['Class'] == 'RC') | (al['Class'] == 'RC_Pristine'))[0]
     #classy[inds] = 1
@@ -134,6 +135,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         inds = np.array(inds)
         X_test = x_train_rescaled[inds]
         y_test = y_train_rescaled[inds]
+        ids = ids[inds]
         test_tinds = inds
         train_inds = list(set(range(len(al[(al['snrg']>50)])))-set(inds))
         X_train = x_train_rescaled[np.array(train_inds)][:num_train]
@@ -168,7 +170,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         #print(len(classy))
         #print(float(len(np.where(classy==1)[0]))/float(len(classy)))
 
-    return X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds
+    return X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds, ids
 
  # fileIn='lamost_rc_wise_gaia_PS1_2mass.fits'
 
@@ -487,7 +489,7 @@ save_mod = 'TModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = 'lamost_phot_qual.fits'',copy=True)
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits'',copy=True)
 #import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)
@@ -550,16 +552,20 @@ def load_data(filein='rgb_p.fits',y_exist=True):
         y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
         return x_train_rescaled, y_train_rescaled
 
-def save_inf(pred_means,pred_weights,pred_std,filein='Tables/test_all_logg.fits',test=True):
+def save_inf(pred_means,pred_weights,pred_std,ids,filein='Tables/test_all_logg.fits',test=True):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
     y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
     y_pred = (ymax - ymin)*(y_pred)+ymin
     y_pred_std = (ymax - ymin)*(y_pred_std)
     if test:
         al = Table.read(filein)
-        al = al[test_inds]
-        al['logg_phot_2'] = y_pred
-        al['logg_phot_2_error'] = y_pred_std
+        inds = []
+        for i in range(len(y_pred)):
+            ind = np.where(al['source_id']== ids[i])[0][0]
+            inds.append(ind)
+        al = al[np.array(inds)]
+        al['teff_phot_2'] = y_pred
+        al['teff_phot_2_error'] = y_pred_std
         al.write('Tables/test_all_logg_teff.fits',overwrite=True)
     else:
         al = Table.read(filein)
@@ -578,7 +584,7 @@ plot_pdfs(test_means,test_weights,test_std,train=False)
 
 plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
 
-save_inf(test_means,test_weights,test_std,test=True)
+save_inf(test_means,test_weights,test_std,ids,test=True)
 """
 ## determing parameters of rc catalog stars
 rc_x, rc_y = load_data()
