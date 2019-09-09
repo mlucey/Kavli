@@ -138,8 +138,8 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         train_inds = list(set(range(len(al[(al['snrg']>50)])))-set(inds))
         X_train = x_train_rescaled[np.array(train_inds)][:num_test]
         y_train = y_train_rescaled[np.array(train_inds)][:num_test]
-        train_tinds= np.array(train_inds)
-        params = params_shuffled[train_tinds]
+        train_tinds= np.array(train_inds)[:num_test]
+        params = params_shuffled[train_tinds][:num_test]
     else:
 
 
