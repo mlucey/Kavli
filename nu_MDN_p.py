@@ -237,7 +237,7 @@ def train(log_likelihood,train_op,n_epoch):
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
     #plt.show()
-    plt.savefig('../Plots/loss_function.pdf')
+    plt.savefig('Plots/loss_function_nu.pdf')
     return train_loss
 
 
