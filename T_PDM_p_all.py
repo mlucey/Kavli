@@ -119,7 +119,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     xmax = np.max(x_train_all[:,:13], axis = None)
     xmin = np.min(x_train_all[:,:13], axis = None)
     x_train_rescaled[:,:13] = (x_train_all[:,:13] - xmin) / (xmax - xmin)
-
+    y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
 
     #import pdb ; pdb.set_trace()
     ymax = np.max(y_train_all, axis = 0)
@@ -135,13 +135,13 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         X_test = x_train_rescaled[inds]
         y_test = y_train_rescaled[inds]
         test_tinds = inds
-        train_inds = set(range(len(al)))-set(inds)
+        train_inds = set(range(len(al[(al['snrg']>50)])))-set(inds)
         X_train = x_train_rescaled[np.array(train_inds)]
-        y_train = y_Train_rescaled[np.array(train_inds)]
+        y_train = y_train_rescaled[np.array(train_inds)]
         train_tinds= np.array(train_inds)
         params = params_shuffled[train_tinds]
     else:
-        y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+
 
         TrainshuffleOrder = np.arange(x_train_rescaled.shape[0])
         np.random.shuffle(TrainshuffleOrder)
@@ -332,7 +332,7 @@ def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('highest peak')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
 def plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     weight_max = np.argmax(pred_weights, axis = 1)  ## argmax or max???
