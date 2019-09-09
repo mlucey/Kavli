@@ -60,15 +60,15 @@ def plot_normal_mix(pis, mus, sigmas, ax, label='', comp=True):
   return final
 
 def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
-    filts = ['Jmag', 'Hmag', 'Kmag', 'phot_g_mean_mag', 'phot_bp_mean_mag',
-              'phot_rp_mean_mag', 'gmag', 'rmag', 'imag',
-              'zmag', 'ymag', 'W1mag', 'W2mag','parallax']  # train filters
+    filts = ['j_m', 'h_m', 'ks_m', 'phot_g_mean_mag', 'phot_bp_mean_mag',
+              'phot_rp_mean_mag', 'g_mean_psf_mag', 'r_mean_psf_mag', 'i_mean_psf_mag',
+              'z_mean_psf_mag', 'y_mean_psf_mag', 'w1mpro', 'w2mpro','parallax'] # train filters
     filts_target = ['DeltaP', 'Deltanu'] #
     # filts_target = ['Teff', 'log_g_'] #
     params = ['teff','logg']
 
     al = Table.read(fileIn)
-    inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) & ~(np.isnan(al['parallax'])) )[0]
+    inds = np.where( ~(np.isnan(al[filts[0]])) & ~(np.isnan(al[filts[1]])) & ~(np.isnan(al[filts[2]])) & ~(np.isnan(al[filts[3]])) & ~(np.isnan(al[filts[4]])) & ~(np.isnan(al[filts[5]]))& ~(np.isnan(al[filts[6]])) & ~(np.isnan(al[filts[7]])) & ~(np.isnan(al[filts[8]])) & ~(np.isnan(al[filts[9]])) & ~(np.isnan(al[filts[10]])) & ~(np.isnan(al[filts[11]])) & ~(np.isnan(al[filts[12]])) & ~(np.isnan(al[filts[13]])) )[0]
     #inds = np.where( (al['Jmag']>-1000) & (al['Hmag']>-1000) & (al['Kmag']>-1000) & (al['phot_g_mean_mag']>-1000) & (al['phot_rp_mean_mag']>-1000) &
 
                      # (al['gmag']>-1000) & (al['rmag']>-1000) & (al['imag']>-1000) & (al['zmag']>-1000) & (al['ymag']>-1000) & (al['W1mag']>-1000) & (al['W2mag']>-1000))[0]
@@ -135,7 +135,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         X_test = x_train_rescaled[inds]
         y_test = y_train_rescaled[inds]
         test_tinds = inds
-        train_inds = list(set(range(len(al[(al['snrg']>50)])))-set(inds))
+        train_inds = set(range(len(al[(al['snrg']>50)])))-set(inds)
         X_train = x_train_rescaled[np.array(train_inds)]
         y_train = y_train_rescaled[np.array(train_inds)]
         train_tinds= np.array(train_inds)
