@@ -277,7 +277,10 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        axes[i].axvline(x=pred_weights[obj][i], color='black', alpha=0.5)
+        if train:
+            axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        else:
+            axes[i].axvline(x=y_test[obj][i], color='black', alpha=0.5)
         #axes[i].text(0.3, 4.0, 'ID: ' +str(obj[i]), horizontalalignment='center',
         #verticalalignment='center')
 

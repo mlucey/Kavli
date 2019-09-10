@@ -148,7 +148,7 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
         t2 = Table.read('Tables/test_rc_nu.fits')
         inds = []
         for i in range(len(t2)):
-            ind = np.where(al['source_id'] == t2['source'][i])[0][0]
+            ind = np.where(al['source_id'] == t2['source_id'][i])[0][0]
             inds.append(ind)
         inds = np.array(inds)
         X_test = x_train_rescaled[inds]
@@ -282,7 +282,10 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        if train:
+            axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        else:
+            axes[i].axvline(x=y_test[obj][i], color='black', alpha=0.5)
     plt.xlabel('Normalized Period Spacing')
     plt.tight_layout()
     if train:
