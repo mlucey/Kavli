@@ -148,7 +148,7 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
         t2 = Table.read('Tables/test_rc_nu.fits')
         inds = []
         for i in range(len(t2)):
-            ind = np.where(al['source_id'] == t2['source'][i])[0][0]
+            ind = np.where(al['source_id'] == t2['source_id'][i])[0][0]
             inds.append(ind)
         inds = np.array(inds)
         X_test = x_train_rescaled[inds]
