@@ -123,12 +123,12 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     xmax = np.max(x_train_all[:,:13], axis = None)
     xmin = np.min(x_train_all[:,:13], axis = None)
     x_train_rescaled[:,:13] = (x_train_all[:,:13] - xmin) / (xmax - xmin)
-    y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+    
 
     #import pdb ; pdb.set_trace()
     ymax = np.max(y_train_all, axis = 0)
     ymin = np.min(y_train_all, axis = 0)
-
+    y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
     if copy:
         t2 = Table.read('Tables/test_all_logg.fits')
         inds = []
