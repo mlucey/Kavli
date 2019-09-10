@@ -1,0 +1,4 @@
+  File "T_PDM_p_all.py", line 495
+    X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits'',copy=True)
+                                                                                                                                      ^
+SyntaxError: EOL while scanning string literal
