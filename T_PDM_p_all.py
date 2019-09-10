@@ -79,7 +79,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     print(inds)
     gps = al[inds]
     tinds = inds
-    x_train_all_1 = np.array([gps[filts[0]], gps[filts[1]], gps[filts[2]], gps[filts[3]], gps[filts[4]], gps[filts[5]], gps[filts[6]], gps[filts[7]], gps[filts[8]], gps[filts[9]], gps[filts[10]], gps[filts[11]], gps[filts[12]]]).T
+    #x_train_all_1 = np.array([gps[filts[0]], gps[filts[1]], gps[filts[2]], gps[filts[3]], gps[filts[4]], gps[filts[5]], gps[filts[6]], gps[filts[7]], gps[filts[8]], gps[filts[9]], gps[filts[10]], gps[filts[11]], gps[filts[12]]]).T
 
     #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000))[0]
     #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000)& ~(np.logical_and(gps['DeltaP']>=100, gps['DeltaP']<=250)))[0]
@@ -95,7 +95,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
 
     np.random.seed(123)
 
-    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]]]).T
+    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]],al[filts[13]).T
     y_train_all = np.array(al[params[0]]).T
     params = np.array([al[params[0]],al[params[1]]]).T
     ids = np.array(al['source_id']).T
