@@ -496,7 +496,7 @@ save_mod = 'gModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str
 
 X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_inds, test_inds = GenData_lamost(fileIn = 'lamost_phot_qual.fits')
 #import pdb ; pdb.set_trace()
-
+"""
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
@@ -506,15 +506,15 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
-print(pred_means)
+train_weights, train_means, train_std = get_predictions(logits, locs, scales)
+print(train_means)
 
-plot_pdfs(pred_means,pred_weights,pred_std)
+plot_pdfs(train_means,train_weights,train_std)
 
-plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
 
-mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
-
+mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(train_means,train_weights,train_std,ymax,ymin,y_train)
+"""
 
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
