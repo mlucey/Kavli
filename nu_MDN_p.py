@@ -261,7 +261,10 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        if train:
+            axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        else:
+            axes[i].axvline(x=y_test[obj][i], color='black', alpha=0.5)
     plt.xlabel('Normalized Period Spacing')
     plt.tight_layout()
     if train:
@@ -468,9 +471,9 @@ def binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut,tbins=
     plt.savefig('Plots/bins_total.pdf')
     return cont, pps, tots
 
-def testing(test_x):
+def testing(X_test):
 
-    logits, locs, scales = mixture_model(test_x,train=False)
+    log_likelihood,  logits, locs, scales = mixture_model(X_test,train=False)
     #_, loss_value = evaluate([train_op, log_likelihood])
     pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
     return pred_weights, pred_means, pred_std
@@ -582,7 +585,7 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=
         al['e_Teff_phot'] = pred_std_in
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
 #testing
-test_weights, test_means, test_std = testing(X_test,y_test)
+test_weights, test_means, test_std = testing(X_test)
 plot_pdfs(test_means,test_weights,test_std,train=False)
 
 plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
