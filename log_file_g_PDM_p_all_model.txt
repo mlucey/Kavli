@@ -1,0 +1,57 @@
+2019-09-10 14:22:34.282589: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2019-09-10 14:22:34.320129: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2019-09-10 14:22:34.327217: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55c4c77ead80 executing computations on platform Host. Devices:
+2019-09-10 14:22:34.327261: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-10 14:22:34.477762: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55c4c41c55f0 executing computations on platform CUDA. Devices:
+2019-09-10 14:22:34.477826: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2019-09-10 14:22:34.480299: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Quadro GV100 major: 7 minor: 0 memoryClockRate(GHz): 1.627
+pciBusID: 0000:2d:00.0
+totalMemory: 31.72GiB freeMemory: 31.41GiB
+2019-09-10 14:22:34.480335: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-10 14:22:34.485057: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-10 14:22:34.485084: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-10 14:22:34.485096: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-10 14:22:34.487408: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30553 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+2019-09-10 14:22:42.183345: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/site-packages/matplotlib/figure.py:445: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  % get_backend())
+/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/site-packages/matplotlib/figure.py:445: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  % get_backend())
+WARNING: UnitsWarning: 'dex' did not parse as fits unit: At col 0, Unit 'dex' not supported by the FITS standard.  [astropy.units.core]
+WARNING: Logging before flag parsing goes to stderr.
+W0910 14:24:16.752773 140340825057088 logger.py:200] UnitsWarning: 'dex' did not parse as fits unit: At col 0, Unit 'dex' not supported by the FITS standard. 
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+1287964
+[      0       1       2 ... 1287961 1287962 1287963]
+[[14.68299961 14.22999954 14.18299961 ... 14.215      14.258
+   0.70141297]
+ [14.69099998 14.53499985 14.23900032 ... 14.335      14.38
+   0.44869809]
+ [14.13899994 13.82800007 13.79300022 ... 13.613      13.661
+   0.73302806]
+ ...
+ [11.91100025 11.63199997 11.58600044 ... 11.506      11.528
+   1.10468381]
+ [ 9.54800034  9.02200031  8.90299988 ...  8.825       8.943
+   0.72845937]
+ [12.15400028 11.87199974 11.81400013 ... 11.807      11.829
+   1.2345698 ]]
+68.96957827687106
+-1.6096654796396705
+[[0.52449938 0.49912038 0.49648724 ... 0.49828004 0.50068908 0.03274445]
+ [0.5249476  0.5162078  0.49962464 ... 0.50500295 0.50752404 0.02916387]
+ [0.49402219 0.47659864 0.4746378  ... 0.46455341 0.46724258 0.03319239]
+ ...
+ [0.36920009 0.35356929 0.3509922  ... 0.34651023 0.34774277 0.03845818]
+ [0.23681469 0.20734592 0.200679   ... 0.19630911 0.20291998 0.03312766]
+ [0.38281399 0.36701511 0.36376572 ... 0.36337355 0.36460608 0.04029847]]
+[545205, 734468, 162059, 729690, 178629, 887539, 795596, 495072, 34199, 587048]
