@@ -492,7 +492,7 @@ save_mod = 'TModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits'',copy=True)
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits',copy=True)
 #import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)

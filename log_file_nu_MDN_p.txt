@@ -1,18 +1,40 @@
-2019-09-10 02:53:12.915329: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
-2019-09-10 02:53:12.952115: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
-2019-09-10 02:53:12.958714: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x559c1e6f3940 executing computations on platform Host. Devices:
-2019-09-10 02:53:12.958760: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
-2019-09-10 02:53:13.095564: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x559c1b09a7b0 executing computations on platform CUDA. Devices:
-2019-09-10 02:53:13.095624: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
-2019-09-10 02:53:13.098088: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+2019-09-10 09:42:47.958095: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2019-09-10 09:42:47.996201: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2019-09-10 09:42:48.003647: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x560656d1d7b0 executing computations on platform Host. Devices:
+2019-09-10 09:42:48.003693: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-10 09:42:48.136196: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x560656cb3360 executing computations on platform CUDA. Devices:
+2019-09-10 09:42:48.136259: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2019-09-10 09:42:48.138701: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
 name: Quadro GV100 major: 7 minor: 0 memoryClockRate(GHz): 1.627
 pciBusID: 0000:2d:00.0
 totalMemory: 31.72GiB freeMemory: 31.41GiB
-2019-09-10 02:53:13.098124: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
-2019-09-10 02:53:13.102341: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
-2019-09-10 02:53:13.102366: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
-2019-09-10 02:53:13.102378: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
-2019-09-10 02:53:13.104671: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30553 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+2019-09-10 09:42:48.138736: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-10 09:42:48.144821: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-10 09:42:48.144865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-10 09:42:48.144881: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-10 09:42:48.148639: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30553 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0910 09:42:48.166085 139712132704064 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0910 09:42:48.170750 139712132704064 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0910 09:42:48.172980 139712132704064 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0910 09:42:48.174971 139712132704064 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0910 09:42:48.177015 139712132704064 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0910 09:42:48.259641 139712132704064 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0910 09:42:48.261126 139712132704064 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0910 09:42:48.270743 139712132704064 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0910 09:42:48.273041 139712132704064 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0910 09:42:48.368534 139712132704064 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-10 09:43:21.016255: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
 
 WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
 For more information, please see:
@@ -22,17 +44,18 @@ If you depend on functionality not listed there, please file an issue.
 
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+[[0.18249708]
+ [0.15367153]
+ [0.11995699]
+ ...
+ [0.16675806]
+ [0.18639535]
+ [0.21127837]]
+[1853, 14858, 13914, 21565, 24681, 10146, 7266, 16393, 2087, 7332]
 Traceback (most recent call last):
-  File "nu_MDN_p.py", line 496, in <module>
-    X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds = GenData_lamost(fileIn = 'lamost_rc_qual.fits')
-  File "nu_MDN_p.py", line 86, in GenData_lamost
-    al = Table.read(fileIn)
-  File "/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/site-packages/astropy/table/connect.py", line 52, in __call__
-    out = registry.read(cls, *args, **kwargs)
-  File "/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/site-packages/astropy/io/registry.py", line 508, in read
-    fileobj = ctx.__enter__()
-  File "/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/contextlib.py", line 112, in __enter__
-    return next(self.gen)
-  File "/home/nramachandra/anaconda3/envs/tf_gpu/lib/python3.7/site-packages/astropy/utils/data.py", line 193, in get_readable_fileobj
-    fileobj = io.FileIO(name_or_obj, 'r')
-FileNotFoundError: [Errno 2] No such file or directory: 'lamost_rc_qual.fits'
+  File "nu_MDN_p.py", line 585, in <module>
+    test_weights, test_means, test_std = testing(X_test,y_test)
+TypeError: testing() takes 1 positional argument but 2 were given
