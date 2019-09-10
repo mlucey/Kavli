@@ -261,7 +261,10 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        axes[i].axvline(x=pred_means[obj][i], color='black', alpha=0.5)
+        if train:
+            axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        else:
+            axes[i].axvline(x=y_test[obj][i], color='black', alpha=0.5)
     plt.xlabel('Normalized Period Spacing')
     plt.tight_layout()
     if train:
