@@ -133,7 +133,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
         t2 = Table.read('Tables/test_all_logg.fits')
         inds = []
         for i in range(len(t2)):
-            ind = np.where(al['source_id'] == t2['source'][i])[0][0]
+            ind = np.where(al['source_id'] == t2['source_id'][i])[0][0]
             inds.append(ind)
         inds = np.array(inds)
         X_test = x_train_rescaled[inds]
