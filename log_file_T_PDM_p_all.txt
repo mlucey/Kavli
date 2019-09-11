@@ -1,15 +1,15 @@
-2019-09-10 16:37:04.805888: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
-2019-09-10 16:37:04.840146: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
-2019-09-10 16:37:04.847580: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55edceff4810 executing computations on platform Host. Devices:
-2019-09-10 16:37:04.847634: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
-2019-09-10 16:37:04.991371: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55edcb802b60 executing computations on platform CUDA. Devices:
-2019-09-10 16:37:04.991431: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
-2019-09-10 16:37:04.993915: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+2019-09-10 20:05:51.434303: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2019-09-10 20:05:51.472205: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2019-09-10 20:05:51.479377: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x563f31d979b0 executing computations on platform Host. Devices:
+2019-09-10 20:05:51.479430: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-10 20:05:51.582917: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x563f317cd9a0 executing computations on platform CUDA. Devices:
+2019-09-10 20:05:51.582975: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2019-09-10 20:05:51.585401: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
 name: Quadro GV100 major: 7 minor: 0 memoryClockRate(GHz): 1.627
 pciBusID: 0000:2d:00.0
-totalMemory: 31.72GiB freeMemory: 31.41GiB
-2019-09-10 16:37:04.993951: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
-2019-09-10 16:37:04.998792: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
-2019-09-10 16:37:04.998819: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
-2019-09-10 16:37:04.998832: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
-2019-09-10 16:37:05.001182: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30553 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+totalMemory: 31.72GiB freeMemory: 30.81GiB
+2019-09-10 20:05:51.585434: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-10 20:05:51.590090: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-10 20:05:51.590116: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-10 20:05:51.590129: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-10 20:05:51.592387: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 29970 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
