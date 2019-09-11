@@ -68,7 +68,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
               'z_mean_psf_mag', 'y_mean_psf_mag', 'w1mpro', 'w2mpro','parallax'] # train filters
     filts_target = ['DeltaP', 'Deltanu'] #
     # filts_target = ['Teff', 'log_g_'] #
-    params = ['teff','logg']
+    param = ['teff','logg']
 
     al = Table.read(fileIn)
     inds = np.where( ~(np.isnan(al[filts[0]])) & ~(np.isnan(al[filts[1]])) & ~(np.isnan(al[filts[2]])) & ~(np.isnan(al[filts[3]])) & ~(np.isnan(al[filts[4]])) & ~(np.isnan(al[filts[5]]))& ~(np.isnan(al[filts[6]])) & ~(np.isnan(al[filts[7]])) & ~(np.isnan(al[filts[8]])) & ~(np.isnan(al[filts[9]])) & ~(np.isnan(al[filts[10]])) & ~(np.isnan(al[filts[11]])) & ~(np.isnan(al[filts[12]])) & ~(np.isnan(al[filts[13]])) )[0]
@@ -96,8 +96,8 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     np.random.seed(123)
 
     x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]],al[filts[13]]]).T
-    y_train_all = np.array(al[params[0]]).T
-    params = np.array([al[params[0]],al[params[1]]]).T
+    y_train_all = np.array(al[param[0]]).T
+    params = np.array([al[param[0]],al[param[1]]]).T
     ids = np.array(al['source_id']).T
     #classy = np.zeros(len(al))
     #inds  = np.where((al['Class'] == 'RC') | (al['Class'] == 'RC_Pristine'))[0]
@@ -123,7 +123,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     xmax = np.max(x_train_all[:,:13], axis = None)
     xmin = np.min(x_train_all[:,:13], axis = None)
     x_train_rescaled[:,:13] = (x_train_all[:,:13] - xmin) / (xmax - xmin)
-    
+
 
     #import pdb ; pdb.set_trace()
     ymax = np.max(y_train_all, axis = 0)
@@ -131,20 +131,22 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits',copy=True):
     y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
     if copy:
         t2 = Table.read('Tables/test_all_logg.fits')
-        inds = []
-        for i in range(len(t2)):
-            ind = np.where(al['source_id'] == t2['source_id'][i])[0][0]
-            inds.append(ind)
-        inds = np.array(inds)
-        X_test = x_train_rescaled[inds]
-        y_test = y_train_rescaled[inds]
-        ids = ids[inds]
-        test_tinds = inds
-        train_inds = list(set(range(len(al[(al['snrg']>50)])))-set(inds))
-        X_train = x_train_rescaled[np.array(train_inds)][:num_train]
-        y_train = y_train_rescaled[np.array(train_inds)][:num_train]
-        train_tinds= np.array(train_inds)[:num_train]
-        params = params[train_tinds][:num_train]
+        x_test_all = np.array([t2[filts[0]], t2[filts[1]], t2[filts[2]], t2[filts[3]], t2[filts[4]], t2[filts[5]], t2[filts[6]], t2[filts[7]], t2[filts[8]], t2[filts[9]], t2[filts[10]], t2[filts[11]], t2[filts[12]],t2[filts[13]]]).T
+        y_test_all = np.array(t2[param[0]]).T
+        X_test = np.zeros((len(x_test_all),len(x_test_all[0])))
+        X_test[:,13] = (x_test_all[:,13]-xmin_a)/(xmax_a-xmin_a)
+        X_test[:,:13] = (x_test_all[:,:13] - xmin) / (xmax - xmin)
+        y_test= (y_test_all - ymin) / (ymax - ymin)
+        test_ids = t2['source_id']
+        ismem = np.in1d(ids,test_ids,invert=True)
+        test_tinds = np.where(ismem==False)[0]
+        train_inds = np.where(ismem==True)[0]
+        al_train = al[train_inds]
+        train_inds = np.where(al_train['snrg']>50)[0][:num_train]
+        X_train = x_train_rescaled[train_inds]
+        y_train = y_train_rescaled[train_inds]
+        train_tinds= train_inds
+        params = params[train_tinds]
     else:
 
 
@@ -488,20 +490,21 @@ learning_rate = 1e-3
 decay_rate= .8
 step=100
 
-num_train = 100000 #800000
-num_test = 10000 #10000 #params.num_test # 32
+num_train = 200000 #800000
+num_test = 900000 #10000 #params.num_test # 32
 
 save_mod = 'TModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 ############training
 
-X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits',copy=True)
-#import pdb ; pdb.set_trace()
+X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds, ids = GenData_lamost(fileIn = 'lamost_phot_qual.fits',copy=True)
+import pdb ; pdb.set_trace()
 
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
 log_likelihood, train_op, logits, locs, scales  = mixture_model(X_train,y_train,learning_rate=learning_rate,decay_rate=decay_rate)
+print('here')
 
 train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
