@@ -1,6 +1,3 @@
-import matplotlib as mpl
-mpl.use('Agg')
-
 import math
 import numpy as np
 import string
@@ -145,22 +142,23 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
   # color mag
 
     if copy:
-        t2 = Table.read('Tables/test_rc_nu.fits')
-        inds = []
-        for i in range(len(t2)):
-            ind = np.where(al['source_id'] == t2['source_id'][i])[0][0]
-            inds.append(ind)
-        inds = np.array(inds)
-        X_test = x_train_rescaled[inds]
-        y_test = y_train_rescaled[inds]
-        ids = ids[inds]
-        test_tinds = inds
-        train_inds = set(range(len(al)))-set(inds)
-        X_train = x_train_rescaled[np.array(train_inds)]
-        y_train = y_Train_rescaled[np.array(train_inds)]
-        train_tinds= np.array(train_inds)
-        params = params_shuffled[train_tinds]
-        classy = classy[train_tinds]
+        t2 = Table.read('Tables/test_all_logg.fits')
+        x_test_all = np.array([t2[filts[0]], t2[filts[1]], t2[filts[2]], t2[filts[3]], t2[filts[4]], t2[filts[5]], t2[filts[6]], t2[filts[7]], t2[filts[8]], t2[filts[9]], t2[filts[10]], t2[filts[11]], t2[filts[12]],t2[filts[13]]]).T
+        y_test_all = np.array(t2[param[0]]).T
+        X_test = np.zeros((len(x_test_all),len(x_test_all[0])))
+        X_test[:,13] = (x_test_all[:,13]-xmin_a)/(xmax_a-xmin_a)
+        X_test[:,:13] = (x_test_all[:,:13] - xmin) / (xmax - xmin)
+        y_test= (y_test_all - ymin) / (ymax - ymin)
+        test_ids = t2['source_id']
+        ismem = np.in1d(ids,test_ids,invert=True)
+        test_tinds = np.where(ismem==False)[0]
+        train_inds = np.where(ismem==True)[0]
+        al_train = al[train_inds]
+        train_inds = np.where(al_train['snrg']>50)[0][:num_train]
+        X_train = x_train_rescaled[train_inds]
+        y_train = y_train_rescaled[train_inds]
+        train_tinds= train_inds
+        params = params[train_tinds]
     else:
         TrainshuffleOrder = np.arange(x_train_rescaled.shape[0])
         np.random.shuffle(TrainshuffleOrder)
@@ -261,7 +259,7 @@ def train(log_likelihood,train_op,n_epoch):
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
     #plt.show()
-    plt.savefig('Plots/loss_function_p.pdf')
+    plt.savefig('../Plots/loss_function.pdf')
     return train_loss
 
 
@@ -282,10 +280,7 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        if train:
-            axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
-        else:
-            axes[i].axvline(x=y_test[obj][i], color='black', alpha=0.5)
+        axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
     plt.xlabel('Normalized Period Spacing')
     plt.tight_layout()
     if train:
@@ -499,7 +494,7 @@ def testing(test_x,test_y):
     pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
     return pred_weights, pred_means, pred_std
 
-n_epochs = 1000000 #1000 #20000 #20000
+n_epochs = 10000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 2 # number of mixture components
@@ -512,7 +507,7 @@ cut = 225
 num_train = 30000 #800000
 num_test = 100000 #10000 #params.num_test # 32
 
-save_mod = 'P_Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = '../rev_Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 
 #X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
