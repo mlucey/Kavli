@@ -587,11 +587,6 @@ def save_inf(pred_means,pred_weights,pred_std,ids,filein='tables/test_rc_nu.fits
     y_pred_std = (ymax - ymin)*(y_pred_std)
     if test:
         al = Table.read(filein)
-        inds = []
-        for i in range(len(y_pred)):
-            ind = np.where(al['source_id']== ids[i])[0][0]
-            inds.append(ind)
-        al = al[np.array(inds)]
         al['Deltap_phot'] = y_pred
         al['Deltap_phot_error'] = y_pred_std
         al.write('Tables/test_rc_nu_p.fits',overwrite=True)
