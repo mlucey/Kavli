@@ -71,16 +71,17 @@ def plot_normal_mix(pis, mus, sigmas, ax, label='', comp=True):
 
 #def GenData_lamost(fileIn = 'lamost_rc_wise_gaia_PS1_2mass.fits'):
 def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
+    al = Table.read(fileIn)
     filts = ['j_m', 'h_m', 'ks_m', 'phot_g_mean_mag', 'phot_bp_mean_mag',
               'phot_rp_mean_mag', 'g_mean_psf_mag', 'r_mean_psf_mag', 'i_mean_psf_mag',
               'z_mean_psf_mag', 'y_mean_psf_mag', 'w1mpro', 'w2mpro','parallax'] # train filters
     #filts_target = ['DeltaP', 'Deltanu'] #
     filts_target = ['deltap']#, 'Deltanu'] #
     # filts_target = ['Teff', 'log_g_'] #
-    params = ['teff','log_g']
+    param = ['teff','log_g']
     #params = ['teff','logg']
 
-    al = Table.read(fileIn)
+
     inds = np.where( ~(np.isnan(al[filts[0]])) & ~(np.isnan(al[filts[1]])) & ~(np.isnan(al[filts[2]])) & ~(np.isnan(al[filts[3]])) & ~(np.isnan(al[filts[4]])) & ~(np.isnan(al[filts[5]]))& ~(np.isnan(al[filts[6]])) & ~(np.isnan(al[filts[7]])) & ~(np.isnan(al[filts[8]])) & ~(np.isnan(al[filts[9]])) & ~(np.isnan(al[filts[10]])) & ~(np.isnan(al[filts[11]])) & ~(np.isnan(al[filts[12]])) & ~(np.isnan(al[filts[13]])) )[0]
 
     #inds = np.where( (al['Jmag']>-1000) & (al['Hmag']>-1000) & (al['Kmag']>-1000) & (al['phot_g_mean_mag']>-1000) & (al['phot_rp_mean_mag']>-1000) &
@@ -105,8 +106,8 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
 
     x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]],al[filts[13]]]).T
     y_train_all = np.array(al[filts_target[0]]).T
-    params = np.array([al[params[0]],al[params[1]]]).T
-    ids = np.array(al['source_id']).T
+    params = np.array([al[param[0]],al[param[1]]]).T
+    ids = np.array(al['id']).T
     classy = np.zeros(len(al))
     inds  = np.where((al['class'] == 'RC         ') | (al['class'] == 'RC_Pristine'))[0]
     #inds  = np.where((al['Class'] == 'R') )[0]
@@ -142,14 +143,14 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
   # color mag
 
     if copy:
-        t2 = Table.read('Tables/test_all_logg.fits')
+        t2 = Table.read('Tables/test_rc_nu.fits')
         x_test_all = np.array([t2[filts[0]], t2[filts[1]], t2[filts[2]], t2[filts[3]], t2[filts[4]], t2[filts[5]], t2[filts[6]], t2[filts[7]], t2[filts[8]], t2[filts[9]], t2[filts[10]], t2[filts[11]], t2[filts[12]],t2[filts[13]]]).T
         y_test_all = np.array(t2[param[0]]).T
         X_test = np.zeros((len(x_test_all),len(x_test_all[0])))
         X_test[:,13] = (x_test_all[:,13]-xmin_a)/(xmax_a-xmin_a)
         X_test[:,:13] = (x_test_all[:,:13] - xmin) / (xmax - xmin)
         y_test= (y_test_all - ymin) / (ymax - ymin)
-        test_ids = t2['source_id']
+        test_ids = t2['id']
         ismem = np.in1d(ids,test_ids,invert=True)
         test_tinds = np.where(ismem==False)[0]
         train_inds = np.where(ismem==True)[0]
@@ -513,9 +514,9 @@ save_mod = '../rev_Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+s
 
 #X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
 
-X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds, ids = GenData_lamost(fileIn = 'all_rc_lamost.fits',copy=True)
+X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds, ids = GenData_lamost(fileIn = 'lamost_rc_qual.fits',copy=True)
 
-
+import pdb ; pdb.set_trace()
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
