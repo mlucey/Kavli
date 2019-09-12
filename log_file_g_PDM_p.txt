@@ -1,0 +1,18 @@
+2019-09-12 11:24:15.807368: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2019-09-12 11:24:15.844032: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2019-09-12 11:24:15.850989: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55bb7c6736d0 executing computations on platform Host. Devices:
+2019-09-12 11:24:15.851044: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-12 11:24:15.956375: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55bb7c3ae0f0 executing computations on platform CUDA. Devices:
+2019-09-12 11:24:15.956442: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2019-09-12 11:24:15.958916: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Quadro GV100 major: 7 minor: 0 memoryClockRate(GHz): 1.627
+pciBusID: 0000:2d:00.0
+totalMemory: 31.72GiB freeMemory: 30.51GiB
+2019-09-12 11:24:15.958949: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-12 11:24:15.964018: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-12 11:24:15.964047: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-12 11:24:15.964059: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-12 11:24:15.966374: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 29678 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+2019-09-12 11:24:20.495700: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+qt.qpa.screen: QXcbConnection: Could not connect to display localhost:10.0
+Could not connect to any X display.
