@@ -85,7 +85,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
               'z_mean_psf_mag', 'y_mean_psf_mag', 'w1mpro', 'w2mpro','parallax']  # train filters
     filts_target = ['DeltaP', 'Deltanu'] #
     # filts_target = ['Teff', 'log_g_'] #
-    params = ['teff','logg']
+    param = ['teff','logg']
 
     al = Table.read(fileIn)
     inds = np.where( ~(np.isnan(al[filts[0]])) & ~(np.isnan(al[filts[1]])) & ~(np.isnan(al[filts[2]])) & ~(np.isnan(al[filts[3]])) & ~(np.isnan(al[filts[4]])) & ~(np.isnan(al[filts[5]]))& ~(np.isnan(al[filts[6]])) & ~(np.isnan(al[filts[7]])) & ~(np.isnan(al[filts[8]])) & ~(np.isnan(al[filts[9]])) & ~(np.isnan(al[filts[10]])) & ~(np.isnan(al[filts[11]])) & ~(np.isnan(al[filts[12]])) & ~(np.isnan(al[filts[13]])) )[0]
@@ -100,7 +100,7 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000))[0]
     #inds = np.where((gps['DeltaP']>-1000) & (gps['Deltanu']>-1000)& ~(np.logical_and(gps['DeltaP']>=100, gps['DeltaP']<=250)))[0]
     #inds = np.where((gps['teff']>-1000) & (gps['logg']>-1000) )[0]
-    inds = np.where(~(np.isnan(gps['teff'])) & ~(np.isnan(gps['logg'])) & (gps['snrg']>50 ))[0]
+    inds = np.where(~(np.isnan(gps['teff'])) & ~(np.isnan(gps['logg']))  & (gps['logg']<3.5) & (np.logical_and(gps['teff']>2500,gps['teff']<5500)))[0]
     #& (np.abs(gps['b'])>45)
     al =  gps[inds]
     tinds = tinds[inds]
@@ -112,8 +112,8 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     np.random.seed(123)
 
     x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]],al[filts[13]]]).T
-    y_train_all = np.array(al[params[1]]).T
-    params = np.array([al[params[0]],al[params[1]]]).T
+    y_train_all = np.array(al[param[1]]).T
+    params = np.array([al[param[0]],al[param[1]]]).T
     #classy = np.zeros(len(al))
     #inds  = np.where((al['Class'] == 'RC') | (al['Class'] == 'RC_Pristine'))[0]
     #classy[inds] = 1
@@ -159,21 +159,38 @@ def GenData_lamost(fileIn = 'lamost_wise_gaia_PS1_2mass.fits'):
     ##ADD GAIA CUT
     #sn_cut = inds = np.where( (al['Jmag']/al['e_Jmag']>SNcut) & (al['Hmag']/al['e_Hmag']>SNcut) & (al['Kmag']/al['e_Kmag']>SNcut) & (al['phot_g_mean_mag']>-1000) & (al['phot_g_mean_mag']>-1000) & (al['phot_rp_mean_mag']>-1000) & (al['gmag']/al['e_gmag']>SNcut) & (al['rmag']/al['e_rmag']>SNcut) & (al['imag']/al['e_imag']>SNcut) & (al['zmag']/al['e_zmag']>SNcut) & (al['ymag']/al['e_ymag']>SNcut) & (al['W1mag']/al['e_W1mag']>SNcut) & (al['W2mag']/al['e_W2mag']>SNcut))[0]
 
-    X_train = x_train_shuffled[:num_train]  # color mag
-    X_test = x_train_shuffled[num_train + 1: num_train + num_test]  # color mag
+    inds_train = np.where(al['snrg'][TrainshuffleOrder]>50)[0][:num_train]
+    train_tinds = tinds[inds_train]
 
 
-    y_train = y_train_shuffled[:num_train]  # spec z
-    y_test = y_train_shuffled[num_train + 1: num_train + num_test]  # spec z
+
+    X_train = x_train_shuffled[inds_train]  # color mag
+
+    y_train = y_train_shuffled[inds_train]  # spec z
+    # spec z
     #classy = classy_shuffled[:num_train]
-    params = params_shuffled[:num_train]
-    train_tinds = tinds[:num_train]
-    test_tinds = tinds[num_train+1:num_train+num_test]
-    # return (X_train[:, 2:8], y_train, X_test[:, 2:8], y_test)
-    # return (X_train[:, :5], y_train[:, 0], X_test[:, :5], y_test[:, 0])
-    #print(len(np.where(classy==1)[0]))
-    #print(len(classy))
-    #print(float(len(np.where(classy==1)[0]))/float(len(classy)))
+    params = params_shuffled[inds_train]
+
+    t = Table.read('Tables/test_all_logg_teff.fits')
+    inds = np.where((t['logg_phot_1']<3.5) & (np.logical_and(t['teff_phot_1']>2500,t['teff_phot_1']<5500)))[0]
+    tinds = np.arange(len(t))
+    al = t[inds]
+    tinds = tinds[inds]
+    x_train_all = np.array([al[filts[0]], al[filts[1]], al[filts[2]], al[filts[3]], al[filts[4]], al[filts[5]], al[filts[6]], al[filts[7]], al[filts[8]], al[filts[9]], al[filts[10]], al[filts[11]], al[filts[12]],al[filts[13]]]).T
+    y_train_all = np.array(al[param[1]]).T
+    x_train_rescaled = np.zeros((len(x_train_all),len(x_train_all[0])))
+    x_train_rescaled[:,13] = (x_train_all[:,13]-xmin_a)/(xmax_a-xmin_a)
+    x_train_rescaled[:,:13] = (x_train_all[:,:13] - xmin) / (xmax - xmin)
+    y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
+    TrainshuffleOrder = np.arange(x_train_rescaled.shape[0])
+    np.random.shuffle(TrainshuffleOrder)
+    tinds = tinds[TrainshuffleOrder]
+    x_train_shuffled = x_train_rescaled[TrainshuffleOrder]
+    y_train_shuffled = y_train_rescaled[TrainshuffleOrder]
+    X_test =x_train_shuffled[:num_test]
+    y_test = y_train_shuffled[:num_test]
+    test_tinds = tinds[:num_test]
+
 
     return X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds
 
@@ -247,7 +264,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
-    plt.savefig('Plots/loss_function.pdf')
+    plt.savefig('Plots/loss_function_g_2.pdf')
     return train_loss
 
 
@@ -268,15 +285,15 @@ def plot_pdfs(pred_means,pred_weights,pred_std,num=10,train=True):
         fs = plot_normal_mix(pred_weights[obj][i], pred_means[obj][i],
                     pred_std[obj][i], axes[i], comp=False)
         allfs.append(fs)
-        axes[i].axvline(x=y_train[obj][i], color='black', alpha=0.5)
+        axes[i].axvline(x=pred_weights[obj][i], color='black', alpha=0.5)
         #axes[i].text(0.3, 4.0, 'ID: ' +str(obj[i]), horizontalalignment='center',
         #verticalalignment='center')
 
     plt.xlabel(r' rescaled[$log(g)_{phot}]$', fontsize = 19)
     if train:
-        plt.savefig('Plots/train_pdfs.pdf')
+        plt.savefig('Plots/train_pdfs_g_2.pdf')
     else:
-        plt.savefig('Plots/test_pdfs.pdf')
+        plt.savefig('Plots/test_pdfs_g_2.pdf')
     plt.tight_layout()
     #plt.show()
 
@@ -309,11 +326,11 @@ def plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no
     #plt.ylim([0,1])
     plt.title('weight x mean')
     if train:
-        plt.savefig('Plots/train_scatter.pdf')
+        plt.savefig('Plots/train_scatter_g_2.pdf')
     else:
-        plt.savefig('Plots/test_scatter.pdf')
+        plt.savefig('Plots/test_scatter_g_2.pdf')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
 def plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train,select='no'):
     def peak(weight,sigma):
@@ -479,9 +496,9 @@ step=100
 SNcut = 100
 
 num_train = 200000 #800000
-num_test = 900000 #10000 #params.num_test # 32
+num_test = 100000 #10000 #params.num_test # 32
 
-save_mod = 'gModels_all/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = 'gModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 ############training
 
@@ -497,14 +514,14 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
-print(pred_means)
+train_weights, train_means, train_std = get_predictions(logits, locs, scales)
+print(train_means)
 
-plot_pdfs(pred_means,pred_weights,pred_std)
+plot_pdfs(train_means,train_weights,train_std)
 
-plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
 
-mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(train_means,train_weights,train_std,ymax,ymin,y_train)
 
 
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
@@ -537,7 +554,7 @@ def load_data(filein='rgb_p.fits',y_exist=True):
         y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
         return x_train_rescaled, y_train_rescaled
 
-def save_inf(pred_means,pred_weights,pred_std,filein='lamost_phot_qual.fits',test=False):
+def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',test=False):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
     y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
     y_pred = (ymax - ymin)*(y_pred)+ymin
@@ -545,9 +562,9 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_phot_qual.fits',tes
     if test:
         al = Table.read(filein)
         al = al[test_inds]
-        al['logg_phot_1'] = y_pred
-        al['logg_phot_1_error'] = y_pred_std
-        al.write('Tables/test_all_logg.fits',overwrite=True)
+        al['logg_phot'] = y_pred
+        al['logg_phot_error'] = y_pred_std
+        al.write('Tables/test_giant_logg.fits',overwrite=True)
     else:
         al = Table.read(filein)
         inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag']))  & ~(np.isnan(al['parallax'])) )[0]
