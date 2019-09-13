@@ -1,13 +1,12 @@
+import matplotlib as mpl
+mpl.use('Agg')
+
 import math
 import numpy as np
 import string
 from datetime import datetime
 import os
 from astropy.table import Table
-
-
-#import matplotlib as mpl
-#mpl.use('Agg')
 
 import matplotlib.pyplot as plt;
 import random

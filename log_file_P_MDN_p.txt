@@ -1,0 +1,57 @@
+2019-09-13 08:59:18.744260: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA
+2019-09-13 08:59:18.780202: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2100000000 Hz
+2019-09-13 08:59:18.787310: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x556e17607420 executing computations on platform Host. Devices:
+2019-09-13 08:59:18.787366: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-13 08:59:18.896027: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x556e14096e60 executing computations on platform CUDA. Devices:
+2019-09-13 08:59:18.896085: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2019-09-13 08:59:18.898477: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Quadro GV100 major: 7 minor: 0 memoryClockRate(GHz): 1.627
+pciBusID: 0000:2d:00.0
+totalMemory: 31.72GiB freeMemory: 30.81GiB
+2019-09-13 08:59:18.898511: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-13 08:59:18.904692: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-13 08:59:18.904736: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-13 08:59:18.904749: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-13 08:59:18.907018: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 29970 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:2d:00.0, compute capability: 7.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0913 08:59:18.924101 140361795745600 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0913 08:59:18.927992 140361795745600 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0913 08:59:18.930038 140361795745600 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0913 08:59:18.932054 140361795745600 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0913 08:59:18.934061 140361795745600 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0913 08:59:18.964430 140361795745600 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0913 08:59:18.965589 140361795745600 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0913 08:59:18.968222 140361795745600 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0913 08:59:18.969432 140361795745600 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0913 08:59:19.044190 140361795745600 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-13 09:04:12.674894: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+[660, 27984, 7037, 27589, 8141, 16055, 9887, 13242, 27981, 13417]
+peak
+Traceback (most recent call last):
+  File "P_MDN_p.py", line 537, in <module>
+    contamp, contamw, contamm, pp, pw, pm = contamination(pred_means,pred_weights,pred_std,ymax,ymin,classy)
+  File "P_MDN_p.py", line 413, in contamination
+    false_positive_p = np.where((rcs==1) & (trcs==0))[0]
+ValueError: operands could not be broadcast together with shapes (30000,) (222625,) 
