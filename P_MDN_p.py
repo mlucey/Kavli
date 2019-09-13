@@ -155,7 +155,7 @@ def GenData_lamost(fileIn = 'rgb_p.fits',copy=False):
         test_tinds = np.where(ismem==False)[0]
         train_inds = np.where(ismem==True)[0]
         al_train = al[train_inds]
-        train_inds = np.where(al_train['snrg']>50)[0][:num_train]
+        train_inds = np.where(al_train['s_n']>75)[0][:num_train]
         X_train = x_train_rescaled[train_inds]
         y_train = y_train_rescaled[train_inds]
         train_tinds= train_inds
@@ -509,7 +509,7 @@ cut = 225
 num_train = 30000 #800000
 num_test = 100000 #10000 #params.num_test # 32
 
-save_mod = '../rev_Models/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
+save_mod = 'PModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(step)+'_ne'+str(n_epochs)+'_k'+str(K)+'_nt'+str(num_train)
 
 
 #X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin = GenData_lamost(fileIn = '../Data/lamost_rc_wise_gaia_PS1_2mass.fits')
