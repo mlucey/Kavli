@@ -523,7 +523,7 @@ log_likelihood, train_op, logits, locs, scales  = mixture_model(X_train,y_train,
 
 train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
-#neural_network.export(save_mod,sess)
+neural_network.export(save_mod,sess)
 
 pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 #print(pred_means)
@@ -540,7 +540,7 @@ contamp, contamw, contamm, pp, pw, pm = contamination(pred_means,pred_weights,pr
 
 
 #load saved network
-#neural_network_t = hub.Module(save_mod)
+neural_network_t = hub.Module(save_mod)
 
 ######testing
 """
