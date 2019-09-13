@@ -516,7 +516,7 @@ save_mod = 'PModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(ste
 
 X_train, y_train, X_test, y_test, classy, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_tinds, test_tinds, ids = GenData_lamost(fileIn = 'lamost_rc_qual.fits',copy=True)
 
-import pdb ; pdb.set_trace()
+#import pdb ; pdb.set_trace()
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
