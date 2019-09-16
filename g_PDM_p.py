@@ -507,7 +507,7 @@ save_mod = 'gModels/lr'+str(learning_rate)+'_dr'+str(decay_rate)+'_step'+str(ste
 
 X_train, y_train, X_test, y_test, params, ymax, ymin, xmax, xmin, xmax_a, xmin_a, train_inds, test_inds = GenData_lamost(fileIn = 'lamost_phot_qual.fits')
 #import pdb ; pdb.set_trace()
-"""
+
 net_spec = hub.create_module_spec(neural_network_mod)
 neural_network = hub.Module(net_spec,name='neural_network',trainable=True)
 
@@ -517,15 +517,15 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-train_weights, train_means, train_std = get_predictions(logits, locs, scales)
-print(train_means)
+#train_weights, train_means, train_std = get_predictions(logits, locs, scales)
+#print(train_means)
 
-plot_pdfs(train_means,train_weights,train_std)
+#plot_pdfs(train_means,train_weights,train_std)
 
-plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
+#plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
 
-mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(train_means,train_weights,train_std,ymax,ymin,y_train)
-"""
+#mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(train_means,train_weights,train_std,ymax,ymin,y_train)
+
 
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
@@ -536,7 +536,7 @@ mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(trai
 
 
 #load saved network
-neural_network_t = hub.Module(save_mod)
+#neural_network_t = hub.Module(save_mod)
 
 
 def load_data(filein='rgb_p.fits',y_exist=True):
@@ -582,10 +582,10 @@ def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',t
 
 ######testing
 
-test_weights, test_means, test_std = testing(X_test,y_test)
-plot_pdfs(test_means,test_weights,test_std,train=False)
+#test_weights, test_means, test_std = testing(X_test,y_test)
+#plot_pdfs(test_means,test_weights,test_std,train=False)
 
-plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
+#plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
 
 #save_inf(test_means,test_weights,test_std,test=True)
 
