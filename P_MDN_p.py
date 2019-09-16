@@ -525,12 +525,12 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-#pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
+pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 #print(pred_means)
 
 #plot_pdfs(pred_means,pred_weights,pred_std)
 
-#plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
