@@ -507,12 +507,12 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
-print(pred_means)
+#pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
+#print(pred_means)
 
-plot_pdfs(pred_means,pred_weights,pred_std)
+#plot_pdfs(pred_means,pred_weights,pred_std)
 
-plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+#plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
@@ -522,7 +522,7 @@ plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
 
 #load saved network
-neural_network_t = hub.Module(save_mod)
+#neural_network_t = hub.Module(save_mod)
 
 ######testing
 """
@@ -585,12 +585,12 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=
         al['e_Teff_phot'] = pred_std_in
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
 #testing
-test_weights, test_means, test_std = testing(X_test)
-plot_pdfs(test_means,test_weights,test_std,train=False)
+#test_weights, test_means, test_std = testing(X_test)
+#plot_pdfs(test_means,test_weights,test_std,train=False)
 
-plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
+#plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
 
-save_inf(test_means,test_weights,test_std,test=True)
+#save_inf(test_means,test_weights,test_std,test=True)
 
 ## determing parameters of rc catalog stars
 """
