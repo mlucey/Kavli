@@ -525,22 +525,22 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
+#pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 #print(pred_means)
 
-plot_pdfs(pred_means,pred_weights,pred_std)
+#plot_pdfs(pred_means,pred_weights,pred_std)
 
-plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+#plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
-contamp, contamw, contamm, pp, pw, pm = contamination(pred_means,pred_weights,pred_std,ymax,ymin,classy)
+#contamp, contamw, contamm, pp, pw, pm = contamination(pred_means,pred_weights,pred_std,ymax,ymin,classy)
 
 #bin_contam, bin_pp, bin_tot = binning(pred_means,pred_weights,pred_std,ymax,ymin,y_train,params,cut=200,tbins=10,gbins=10)
 
 
 #load saved network
-neural_network_t = hub.Module(save_mod)
+#neural_network_t = hub.Module(save_mod)
 
 ######testing
 """
@@ -603,12 +603,12 @@ def save_inf(pred_means,pred_weights,pred_std,ids,filein='tables/test_rc_nu.fits
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
 
 #testing
-test_weights, test_means, test_std = testing(X_test,y_test)
-plot_pdfs(test_means,test_weights,test_std,train=False)
+#test_weights, test_means, test_std = testing(X_test,y_test)
+#plot_pdfs(test_means,test_weights,test_std,train=False)
 
-plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
+#plot_pred_mean(test_means,test_weights,test_std,ymax,ymin,y_test,train=False)
 
-save_inf(test_means,test_weights,test_std,ids,test=True)
+#save_inf(test_means,test_weights,test_std,ids,test=True)
 
 ## determing parameters of rc catalog stars
 """
