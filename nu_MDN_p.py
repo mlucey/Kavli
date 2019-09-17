@@ -507,12 +507,12 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-#pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
+pred_weights, pred_means, pred_std = get_predictions(logits, locs, scales)
 #print(pred_means)
 
 #plot_pdfs(pred_means,pred_weights,pred_std)
 
-#plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
+plot_pred_mean(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_peak(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 #plot_pred_weight(pred_means,pred_weights,pred_std,ymax,ymin,y_train)
 
@@ -562,7 +562,7 @@ def load_data(filein='../../Kavli/rgb_p_rev_phot_phot.fits',y_exist=True):
     else:
         return x_train_rescaled
 
-def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=True):
+def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=True,train=False,y_train=y_train):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
     y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
     y_pred = (ymax - ymin)*(y_pred)+ymin
@@ -573,6 +573,9 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=
         al['Delatnu_phot'] = y_pred
         al['Deltanu_phot_error'] = y_pred_std
         al.write('Tables/test_rc_nu.fits',overwrite=True)
+    if train:
+        al = Table([y_train, y_pred, y_pred_std],names=('Deltap','Deltap_phot','Deltap_phot_error'))
+        al.write('Tables/train_rc_p.fits')
     else:
         al = Table.read(filein)
         inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag'])) )[0]
@@ -584,6 +587,9 @@ def save_inf(pred_means,pred_weights,pred_std,filein='lamost_rc_qual.fits',test=
         al['Teff_phot'] = pred_in
         al['e_Teff_phot'] = pred_std_in
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
+        
+save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+        
 #testing
 #test_weights, test_means, test_std = testing(X_test)
 #plot_pdfs(test_means,test_weights,test_std,train=False)
