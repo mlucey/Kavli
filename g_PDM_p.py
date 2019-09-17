@@ -517,12 +517,12 @@ train_loss = train(log_likelihood,train_op,n_epochs)
 #save network
 neural_network.export(save_mod,sess)
 
-#train_weights, train_means, train_std = get_predictions(logits, locs, scales)
+train_weights, train_means, train_std = get_predictions(logits, locs, scales)
 #print(train_means)
 
 #plot_pdfs(train_means,train_weights,train_std)
 
-#plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
+plot_pred_mean(train_means,train_weights,train_std,ymax,ymin,y_train)
 
 #mean_diff, med_diff, std_diff, mean_sigma, med_sigma, std_sigma = per_stats(train_means,train_weights,train_std,ymax,ymin,y_train)
 
@@ -557,7 +557,7 @@ def load_data(filein='rgb_p.fits',y_exist=True):
         y_train_rescaled = (y_train_all - ymin) / (ymax - ymin)
         return x_train_rescaled, y_train_rescaled
 
-def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',test=False):
+def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',test=False,train=False,y_train=None):
     y_pred = np.sum(pred_means*pred_weights, axis = 1)
     y_pred_std = np.sum(pred_std*pred_weights, axis = 1)
     y_pred = (ymax - ymin)*(y_pred)+ymin
@@ -568,6 +568,9 @@ def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',t
         al['logg_phot'] = y_pred
         al['logg_phot_error'] = y_pred_std
         al.write('Tables/test_giant_logg.fits',overwrite=True)
+    if train:
+        al = Table([y_train, y_pred, y_pred_std],names=('Deltap','Deltap_phot','Deltap_phot_error'))
+        al.write('Tables/train_rc_p.fits')
     else:
         al = Table.read(filein)
         inds = np.where( ~(np.isnan(al['Jmag'])) & ~(np.isnan(al['Hmag'])) & ~(np.isnan(al['Kmag'])) & ~(np.isnan(al['phot_g_mean_mag'])) & ~(np.isnan(al['phot_rp_mean_mag'])) & ~(np.isnan(al['phot_bp_mean_mag']))& ~(np.isnan(al['gmag'])) & ~(np.isnan(al['rmag'])) & ~(np.isnan(al['imag'])) & ~(np.isnan(al['zmag'])) & ~(np.isnan(al['ymag'])) & ~(np.isnan(al['W1mag'])) & ~(np.isnan(al['W2mag']))  & ~(np.isnan(al['parallax'])) )[0]
@@ -580,6 +583,7 @@ def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',t
         al['e_logg_phot'] = pred_std_in
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
 
+save_inf(train_means,train_weights,train_std,test=False,train=True,y_train=y_train)
 ######testing
 
 #test_weights, test_means, test_std = testing(X_test,y_test)
