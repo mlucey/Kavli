@@ -583,7 +583,7 @@ def save_inf(pred_means,pred_weights,pred_std,filein='test_all_logg_teff.fits',t
         al['e_logg_phot'] = pred_std_in
         al.write(filein[:-5]+'_phot.fits',overwrite=True)
 
-save_inf(train_means,train_weights,train_std,test=False,train=True,y_train=y_train)
+save_inf(train_means,train_weights,train_std,ids,test=False,train=True,y_train=y_train)
 ######testing
 
 #test_weights, test_means, test_std = testing(X_test,y_test)
