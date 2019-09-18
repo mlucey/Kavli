@@ -1,0 +1,3 @@
+*.fits
+Tables/*
+Tables/*.fits
