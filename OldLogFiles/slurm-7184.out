@@ -1,0 +1,70 @@
+[0] setting up environment
+2019-09-18 18:49:11.623632: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-18 18:49:11.635954: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099925000 Hz
+2019-09-18 18:49:11.639312: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fac4b7393a0 executing computations on platform Host. Devices:
+2019-09-18 18:49:11.639349: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-18 18:49:12.265726: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fac4b7e8c50 executing computations on platform CUDA. Devices:
+2019-09-18 18:49:12.265794: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-18 18:49:12.266036: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-18 18:49:12.266063: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-18 18:49:12.269416: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-18 18:49:12.269439: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-18 18:49:12.269449: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-18 18:49:12.269595: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0918 18:49:12.285970 140377877714752 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 18:49:12.288893 140377877714752 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 18:49:12.292276 140377877714752 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 18:49:12.294940 140377877714752 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 18:49:12.297521 140377877714752 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0918 18:49:12.438970 140377877714752 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0918 18:49:12.441622 140377877714752 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 18:49:12.503697 140377877714752 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 18:49:12.507184 140377877714752 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 18:49:12.511121 140377877714752 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-18 18:49:57.065384: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "nu_MDN_p.py", line 508, in <module>
+    neural_network.export(save_mod,sess)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/module.py", line 319, in export
+    self._impl.export(path, session)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/native_module.py", line 586, in export
+    self._spec._export(path, variables_saver)  # pylint: disable=protected-access
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/native_module.py", line 358, in _export
+    overwrite=False)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow_hub/tf_utils.py", line 67, in atomic_write_string_to_file
+    tf_v1.gfile.Rename(temp_pathname, filename, overwrite)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/lib/io/file_io.py", line 508, in rename
+    rename_v2(oldname, newname, overwrite)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/lib/io/file_io.py", line 526, in rename_v2
+    compat.as_bytes(src), compat.as_bytes(dst), overwrite, status)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/tensorflow/python/framework/errors_impl.py", line 528, in __exit__
+    c_api.TF_GetCode(self.status.status))
+tensorflow.python.framework.errors_impl.AlreadyExistsError: file already exists
+srun: error: cp1-p: task 0: Exited with exit code 1
+[4970] End job

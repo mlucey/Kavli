@@ -1,0 +1,217 @@
+[0] setting up environment
+2019-09-18 19:49:51.175681: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-18 19:49:51.190670: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099815000 Hz
+2019-09-18 19:49:51.196168: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fd7b4ea6fe0 executing computations on platform Host. Devices:
+2019-09-18 19:49:51.196229: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-18 19:49:51.931279: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fd7b4f56890 executing computations on platform CUDA. Devices:
+2019-09-18 19:49:51.931327: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-18 19:49:51.931572: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-18 19:49:51.931600: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-18 19:49:51.936845: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-18 19:49:51.936879: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-18 19:49:51.936891: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-18 19:49:51.937059: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+2019-09-18 19:49:58.226957: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+1287964
+[      0       1       2 ... 1287961 1287962 1287963]
+[[14.68299961 14.22999954 14.18299961 ... 14.215      14.258
+   0.70141297]
+ [14.69099998 14.53499985 14.23900032 ... 14.335      14.38
+   0.44869809]
+ [14.13899994 13.82800007 13.79300022 ... 13.613      13.661
+   0.73302806]
+ ...
+ [11.91100025 11.63199997 11.58600044 ... 11.506      11.528
+   1.10468381]
+ [ 9.54800034  9.02200031  8.90299988 ...  8.825       8.943
+   0.72845937]
+ [12.15400028 11.87199974 11.81400013 ... 11.807      11.829
+   1.2345698 ]]
+68.96957827687106
+-1.6096654796396705
+[[0.52449938 0.49912038 0.49648724 ... 0.49828004 0.50068908 0.03274445]
+ [0.5249476  0.5162078  0.49962464 ... 0.50500295 0.50752404 0.02916387]
+ [0.49402219 0.47659864 0.4746378  ... 0.46455341 0.46724258 0.03319239]
+ ...
+ [0.36920009 0.35356929 0.3509922  ... 0.34651023 0.34774277 0.03845818]
+ [0.23681469 0.20734592 0.200679   ... 0.19630911 0.20291998 0.03312766]
+ [0.38281399 0.36701511 0.36376572 ... 0.36337355 0.36460608 0.04029847]]
+/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/matplotlib/figure.py:445: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  % get_backend())
+Traceback (most recent call last):
+  File "g_PDM_p_all.py", line 578, in <module>
+    save_inf(train_means,train_weights,train_std,ids,test=False,train=True,y_train=y_train)
+NameError: name 'ids' is not defined
+srun: error: cp2-p: task 0: Exited with exit code 1
+2019-09-18 19:53:26.742346: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-18 19:53:26.756264: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099815000 Hz
+2019-09-18 19:53:26.760829: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f726428c2e0 executing computations on platform Host. Devices:
+2019-09-18 19:53:26.760872: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-18 19:53:27.448428: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f726433bb90 executing computations on platform CUDA. Devices:
+2019-09-18 19:53:27.448465: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-18 19:53:27.448658: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-18 19:53:27.448678: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-18 19:53:27.451081: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-18 19:53:27.451098: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-18 19:53:27.451104: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-18 19:53:27.451220: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+2019-09-18 19:53:33.970827: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+1287964
+[      0       1       2 ... 1287961 1287962 1287963]
+[[14.68299961 14.22999954 14.18299961 ... 14.215      14.258
+   0.70141297]
+ [14.69099998 14.53499985 14.23900032 ... 14.335      14.38
+   0.44869809]
+ [14.13899994 13.82800007 13.79300022 ... 13.613      13.661
+   0.73302806]
+ ...
+ [11.91100025 11.63199997 11.58600044 ... 11.506      11.528
+   1.10468381]
+ [ 9.54800034  9.02200031  8.90299988 ...  8.825       8.943
+   0.72845937]
+ [12.15400028 11.87199974 11.81400013 ... 11.807      11.829
+   1.2345698 ]]
+68.96957827687106
+-1.6096654796396705
+here
+2019-09-18 19:56:56.667360: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-18 19:56:56.681301: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099815000 Hz
+2019-09-18 19:56:56.686308: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f8a44430120 executing computations on platform Host. Devices:
+2019-09-18 19:56:56.686355: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-18 19:56:57.408056: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f8a444df9e0 executing computations on platform CUDA. Devices:
+2019-09-18 19:56:57.408101: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-18 19:56:57.408422: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-18 19:56:57.408454: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-18 19:56:57.411790: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-18 19:56:57.411815: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-18 19:56:57.411825: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-18 19:56:57.411971: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0918 19:56:57.429377 140231720134464 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:56:57.432295 140231720134464 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:56:57.435664 140231720134464 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:56:57.438302 140231720134464 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:56:57.440824 140231720134464 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0918 19:56:57.506001 140231720134464 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0918 19:56:57.508049 140231720134464 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:56:57.515351 140231720134464 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:56:57.517395 140231720134464 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:56:57.519825 140231720134464 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-18 19:57:41.975177: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "nu_MDN_p.py", line 591, in <module>
+    save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+NameError: name 'ids' is not defined
+srun: error: cp2-p: task 0: Exited with exit code 1
+2019-09-18 19:58:40.231181: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-18 19:58:40.242720: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099815000 Hz
+2019-09-18 19:58:40.246532: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f67a9ce6be0 executing computations on platform Host. Devices:
+2019-09-18 19:58:40.246581: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-18 19:58:40.840621: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f67a9d96490 executing computations on platform CUDA. Devices:
+2019-09-18 19:58:40.840680: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-18 19:58:40.840929: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-18 19:58:40.840951: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-18 19:58:40.844181: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-18 19:58:40.844206: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-18 19:58:40.844223: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-18 19:58:40.844376: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0918 19:58:40.861276 140083105867584 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:58:40.864203 140083105867584 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:58:40.867610 140083105867584 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:58:40.870275 140083105867584 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0918 19:58:40.872884 140083105867584 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0918 19:58:40.938711 140083105867584 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0918 19:58:40.940765 140083105867584 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:58:40.947952 140083105867584 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:58:40.950083 140083105867584 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0918 19:58:40.952628 140083105867584 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-18 20:06:38.787587: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "P_MDN_p.py", line 608, in <module>
+    save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+  File "P_MDN_p.py", line 595, in save_inf
+    al.write('Tables/train_rc_p.fits')
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/table/connect.py", line 114, in __call__
+    registry.write(instance, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/registry.py", line 566, in write
+    writer(data, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/fits/connect.py", line 394, in write_table_fits
+    raise OSError("File exists: {0}".format(output))
+OSError: File exists: Tables/train_rc_p.fits
+srun: error: cp2-p: task 0: Exited with exit code 1
+[1050] End job
