@@ -481,14 +481,14 @@ def plot_cum_sigma(pred_weights,pred_std,ymax,ymin):
     plt.xlabel('Sigma')
     plt.show()
 
-n_epochs = 1000 #1000000 #1000 #20000 #20000
+n_epochs = 1200 #1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
 
 learning_rate = 5e-3
 decay_rate= .1
-step= 100 #100
+step= 10 #100
 
 num_train = 200000 #800000
 num_test = 900000 #10000 #params.num_test # 32

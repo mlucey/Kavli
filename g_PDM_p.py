@@ -488,14 +488,14 @@ def testing(X_test,y_test):
 
 
 
-n_epochs = 1000 #1000000 #1000000 #1000 #20000 #20000
+n_epochs = 1200 #1000000 #1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
 
-learning_rate = 5e-2 #1e-2
-decay_rate= 0.1 #.5
-step= 100 #100
+learning_rate = 1e-2 #1e-2
+decay_rate= 1e-2 #.5
+step= 10 #100
 SNcut = 100
 
 num_train = 200000 #800000
