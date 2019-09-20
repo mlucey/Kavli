@@ -478,14 +478,14 @@ def testing(X_test):
     pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
     return pred_weights, pred_means, pred_std
 
-n_epochs =  500 #10000 #1000000 #1000 #20000 #20000
+n_epochs =  1000 #10000 #1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
 
-learning_rate = 1e-2
-decay_rate= 0.1 #1e-6
-step= 100 #1000
+learning_rate = 5e-3
+decay_rate= 1e-2 #1e-6
+step= 10 #1000
 
 cut = 225
 num_train = 30000 #800000
