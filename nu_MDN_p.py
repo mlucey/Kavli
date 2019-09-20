@@ -186,9 +186,10 @@ def neural_network_mod():
     """
     X = tf.placeholder(tf.float64,name='X',shape=(None,D))
     # 2 hidden layers with 15 hidden units
-    net = tf.layers.dense(X, 32, activation=tf.nn.relu)
-    net = tf.layers.dense(net, 16, activation=tf.nn.relu)
-    net = tf.layers.dense(net, 8, activation=tf.nn.relu)
+    net = tf.layers.dense(X, 32, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(X, 24, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(net, 16, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(net, 8, activation=tf.nn.sigmoid)
     locs = tf.layers.dense(net, K, activation=None)
     scales = tf.layers.dense(net, K, activation=tf.exp)
     logits = tf.layers.dense(net, K, activation=None)
@@ -478,7 +479,7 @@ def testing(X_test):
     pred_weights, pred_means, pred_std = get_predictions(logits,locs,scales)
     return pred_weights, pred_means, pred_std
 
-n_epochs =  1200 #10000 #1000000 #1000 #20000 #20000
+n_epochs =  1202 #10000 #1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
