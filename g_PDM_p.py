@@ -267,7 +267,7 @@ def train(log_likelihood,train_op,n_epoch):
         _, loss_value = evaluate([train_op, log_likelihood])
         train_loss[i] = loss_value
     plt.plot(np.arange(n_epoch), -train_loss / len(X_train), label='Train Loss')
-    plt.savefig('Plots/loss_function_g_2.pdf')
+    plt.savefig('Plots/loss_function_g.pdf')
     return train_loss
 
 
@@ -488,7 +488,7 @@ def testing(X_test,y_test):
 
 
 
-n_epochs = 1000000 #1000000 #1000 #20000 #20000
+n_epochs = 100 #1000000 #1000000 #1000 #20000 #20000
 # N = 4000  # number of data points  -- replaced by num_trai
 D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
