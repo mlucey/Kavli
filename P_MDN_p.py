@@ -206,9 +206,10 @@ def neural_network_mod():
     """
     X = tf.placeholder(tf.float64,name='X',shape=(None,D))
     # 2 hidden layers with 15 hidden units
-    net = tf.layers.dense(X, 32, activation=tf.nn.relu)
-    net = tf.layers.dense(net, 16, activation=tf.nn.relu)
-    net = tf.layers.dense(net, 8, activation=tf.nn.relu)
+    net = tf.layers.dense(X, 32, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(X, 24, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(net, 16, activation=tf.nn.sigmoid)
+    net = tf.layers.dense(net, 8, activation=tf.nn.sigmoid)
     locs = tf.layers.dense(net, K, activation=None)
     scales = tf.layers.dense(net, K, activation=tf.exp)
     logits = tf.layers.dense(net, K, activation=None)
