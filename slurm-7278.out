@@ -1,0 +1,118 @@
+[0] setting up environment
+2019-09-21 16:24:34.988666: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-21 16:24:35.001708: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099945000 Hz
+2019-09-21 16:24:35.005808: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fd6ae1a2f80 executing computations on platform Host. Devices:
+2019-09-21 16:24:35.005853: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-21 16:24:35.802172: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7fd6ae252820 executing computations on platform CUDA. Devices:
+2019-09-21 16:24:35.802214: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-21 16:24:35.802443: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-21 16:24:35.802469: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-21 16:24:35.805500: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-21 16:24:35.805523: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-21 16:24:35.805533: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-21 16:24:35.805670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0921 16:24:35.823286 140559928739648 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 16:24:35.826020 140559928739648 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 16:24:35.829202 140559928739648 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 16:24:35.831718 140559928739648 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 16:24:35.834197 140559928739648 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0921 16:24:35.898278 140559928739648 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0921 16:24:35.900255 140559928739648 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 16:24:35.908503 140559928739648 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 16:24:35.910587 140559928739648 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 16:24:35.913103 140559928739648 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-21 16:25:20.727908: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "nu_MDN_p.py", line 592, in <module>
+    save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+NameError: name 'ids' is not defined
+srun: error: cp3-p: task 0: Exited with exit code 1
+2019-09-21 17:46:45.839136: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-21 17:46:45.854245: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099945000 Hz
+2019-09-21 17:46:45.859805: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f3d2bbbb9c0 executing computations on platform Host. Devices:
+2019-09-21 17:46:45.859862: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-21 17:46:46.638631: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f3d2bc6b260 executing computations on platform CUDA. Devices:
+2019-09-21 17:46:46.638671: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-21 17:46:46.638856: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-21 17:46:46.638878: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-21 17:46:46.641995: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-21 17:46:46.642021: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-21 17:46:46.642031: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-21 17:46:46.642182: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0921 17:46:46.658382 139900625684288 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 17:46:46.661430 139900625684288 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 17:46:46.664952 139900625684288 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 17:46:46.667706 139900625684288 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0921 17:46:46.670411 139900625684288 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0921 17:46:46.736966 139900625684288 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0921 17:46:46.739036 139900625684288 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 17:46:46.746279 139900625684288 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 17:46:46.748470 139900625684288 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0921 17:46:46.751092 139900625684288 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-21 17:54:51.238799: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "P_MDN_p.py", line 609, in <module>
+    save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+  File "P_MDN_p.py", line 596, in save_inf
+    al.write('Tables/train_rc_p.fits')
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/table/connect.py", line 114, in __call__
+    registry.write(instance, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/registry.py", line 566, in write
+    writer(data, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/fits/connect.py", line 394, in write_table_fits
+    raise OSError("File exists: {0}".format(output))
+OSError: File exists: Tables/train_rc_p.fits
+srun: error: cp3-p: task 0: Exited with exit code 1
+[8612] End job
