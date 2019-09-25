@@ -495,7 +495,7 @@ D = 14 #6  # number of features  (8 for DES, 6 for COSMOS)
 K = 1 # number of mixture components
 
 learning_rate = 1e-2 #1e-2
-decay_rate= 1e-2 #.5
+decay_rate= 1e-1 #.5
 step= 10 #100
 SNcut = 100
 
