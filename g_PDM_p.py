@@ -496,7 +496,7 @@ K = 1 # number of mixture components
 
 learning_rate = 5e-3 #1e-2
 decay_rate= 1e-1 #.5
-step= 10 #100
+step= 100 #100
 SNcut = 100
 
 num_train = 200000 #800000
