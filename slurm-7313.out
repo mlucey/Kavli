@@ -15,3 +15,104 @@ totalMemory: 15.90GiB freeMemory: 15.64GiB
 2019-09-26 00:45:19.679241: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
 2019-09-26 00:45:19.679378: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
 2019-09-26 00:45:24.067938: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+1287964
+[      0       1       2 ... 1287961 1287962 1287963]
+[[1.42010002e+01 1.36470003e+01 1.35600004e+01 ... 1.34940000e+01
+  1.35240000e+01 2.31071287e-01]
+ [1.52720003e+01 1.46890001e+01 1.46199999e+01 ... 1.45640000e+01
+  1.45340000e+01 2.50156382e-02]
+ [1.45600004e+01 1.39490004e+01 1.38900003e+01 ... 1.38140000e+01
+  1.39120000e+01 1.21588542e-02]
+ ...
+ [1.17799997e+01 1.12049999e+01 1.10889997e+01 ... 1.10090000e+01
+  1.11170000e+01 3.90151217e-01]
+ [1.02880001e+01 9.57100010e+00 9.40699959e+00 ... 9.34100000e+00
+  9.46400000e+00 1.54063787e-01]
+ [9.54800034e+00 9.02200031e+00 8.90299988e+00 ... 8.82500000e+00
+  8.94300000e+00 7.28459370e-01]]
+17.824765284426462
+-1.0782020547003095
+[[0.53972578 0.5060537  0.50076586 ... 0.49675435 0.49857775 0.06926285]
+ [0.60482109 0.56938638 0.56519255 ... 0.56178888 0.55996548 0.05836214]
+ [0.56154578 0.52440924 0.52082323 ... 0.51620393 0.52216037 0.057682  ]
+ ...
+ [0.39257754 0.35762909 0.35057861 ... 0.34571623 0.35228047 0.07767845]
+ [0.30189391 0.2583147  0.24834676 ... 0.24433531 0.25181124 0.06518902]
+ [0.25691678 0.22494653 0.2177137  ... 0.21297287 0.2201449  0.09557555]]
+Traceback (most recent call last):
+  File "g_PDM_p.py", line 587, in <module>
+    save_inf(train_means,train_weights,train_std,ids,test=False,train=True,y_train=y_train)
+NameError: name 'ids' is not defined
+srun: error: cp1-p: task 0: Exited with exit code 1
+2019-09-26 02:11:58.722026: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-09-26 02:11:58.733448: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2099925000 Hz
+2019-09-26 02:11:58.737129: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f5d7fab4440 executing computations on platform Host. Devices:
+2019-09-26 02:11:58.737171: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-26 02:11:59.358901: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x7f5d7fb63d00 executing computations on platform CUDA. Devices:
+2019-09-26 02:11:59.358944: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla P100-PCIE-16GB, Compute Capability 6.0
+2019-09-26 02:11:59.359162: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla P100-PCIE-16GB major: 6 minor: 0 memoryClockRate(GHz): 1.3285
+pciBusID: 0000:83:00.0
+totalMemory: 15.90GiB freeMemory: 15.64GiB
+2019-09-26 02:11:59.359187: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-09-26 02:11:59.362333: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-26 02:11:59.362359: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-09-26 02:11:59.362369: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-09-26 02:11:59.362533: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 15216 MB memory) -> physical GPU (device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:83:00.0, compute capability: 6.0)
+WARNING: W35: None:5:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+WARNING: Logging before flag parsing goes to stderr.
+W0926 02:11:59.378921 140039456487232 logger.py:200] W35: None:5:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:12:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0926 02:11:59.382019 140039456487232 logger.py:200] W35: None:12:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:13:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0926 02:11:59.385633 140039456487232 logger.py:200] W35: None:13:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:14:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0926 02:11:59.388476 140039456487232 logger.py:200] W35: None:14:0: W35: 'value' attribute required for INFO elements
+WARNING: W35: None:16:0: W35: 'value' attribute required for INFO elements [astropy.io.votable.tree]
+W0926 02:11:59.391273 140039456487232 logger.py:200] W35: None:16:0: W35: 'value' attribute required for INFO elements
+WARNING: W50: None:27:0: W50: Invalid unit string '[cm/s2]' [astropy.io.votable.tree]
+W0926 02:11:59.461998 140039456487232 logger.py:200] W50: None:27:0: W50: Invalid unit string '[cm/s2]'
+WARNING: W50: None:28:0: W50: Invalid unit string '[Sun]' [astropy.io.votable.tree]
+W0926 02:11:59.464085 140039456487232 logger.py:200] W50: None:28:0: W50: Invalid unit string '[Sun]'
+WARNING: W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0926 02:11:59.470831 140039456487232 logger.py:200] W06: None:30:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0926 02:11:59.473039 140039456487232 logger.py:200] W06: None:34:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+WARNING: W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word [astropy.io.votable.tree]
+W0926 02:11:59.475693 140039456487232 logger.py:200] W06: None:38:0: W06: Invalid UCD 'arith.ratio': Secondary word 'arith.ratio' is not valid as a primary word
+2019-09-26 02:19:55.853596: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10.0 locally
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+0
+17.8248
+-0.7038
+Traceback (most recent call last):
+  File "P_MDN_p.py", line 609, in <module>
+    save_inf(pred_means,pred_weights,pred_std,ids,test=False,train=True,y_train=y_train)
+  File "P_MDN_p.py", line 596, in save_inf
+    al.write('Tables/train_rc_p.fits')
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/table/connect.py", line 114, in __call__
+    registry.write(instance, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/registry.py", line 566, in write
+    writer(data, *args, **kwargs)
+  File "/homes/nramachandra/anaconda3/envs/tf_gpu/lib/python3.6/site-packages/astropy/io/fits/connect.py", line 394, in write_table_fits
+    raise OSError("File exists: {0}".format(output))
+OSError: File exists: Tables/train_rc_p.fits
+srun: error: cp1-p: task 0: Exited with exit code 1
+[8875] End job
