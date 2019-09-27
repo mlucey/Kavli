@@ -11,7 +11,7 @@ srun -p cp100 python g_PDM_p.py
 #srun -p cp100 python g_PDM_p_all.py
 #srun -p cp100 python T_PDM_p_all.py
 #srun -p cp100 python nu_MDN_p.py
-srun -p cp100 python P_MDN_p.py
+#srun -p cp100 python P_MDN_p.py
 
 
 echo [$SECONDS] End job 
